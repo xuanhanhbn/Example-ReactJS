@@ -22,6 +22,11 @@ const navigation = () => {
       icon: AccountCogOutline,
       path: '/account-settings'
     },
+    {
+      title: 'Customer',
+      icon: AccountCogOutline,
+      path: '/customer-dashboard'
+    },
 
     {
       sectionTitle: 'User Interface'
