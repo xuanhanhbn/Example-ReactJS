@@ -19,7 +19,6 @@ const FormLayouts = () => {
   return (
     <DatePickerWrapper>
       <Grid container spacing={6}>
-        {/*  form modal */}
         <Grid item xs={12}>
           <FormModal title='Create New User' buttonName='Create User'>
             <TextField fullWidth label='Name' placeholder='Leonard Carter' margin="dense"/>
