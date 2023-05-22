@@ -12,11 +12,22 @@ import FormLayoutsAlignment from 'src/views/form-layouts/FormLayoutsAlignment'
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
+import FormModal from 'src/views/form-layouts/FormModal'
+import { TextField } from '@mui/material'
 
 const FormLayouts = () => {
   return (
     <DatePickerWrapper>
       <Grid container spacing={6}>
+        {/*  form modal */}
+        <Grid item xs={12}>
+          <FormModal title='Create New User' buttonName='Create User'>
+            <TextField fullWidth label='Name' placeholder='Leonard Carter' margin="dense"/>
+            <TextField fullWidth type='email' label='Email' placeholder='carterleonard@gmail.com' margin="dense"  />
+            <TextField fullWidth type='password' label='Password' placeholder='Password' margin="dense"  />
+            <TextField fullWidth type='password' label='Confirm Password' placeholder='Confirm Password' margin="dense"  />
+          </FormModal>
+        </Grid>
         <Grid item xs={12} md={6}>
           <FormLayoutsBasic />
         </Grid>
