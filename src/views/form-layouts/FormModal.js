@@ -10,6 +10,7 @@ import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
+import { TextField } from '@mui/material'
 
 const style = {
   position: 'absolute',
@@ -27,20 +28,23 @@ const btStyle = {
   boxShadow: 10
 }
 
-export default function FormModal({ title, buttonName, children }) {
+export default function FormModal(props) {
+  const { title, onOpen, onClose, value } = props
+
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleClose = () => onClose()
+  const valueInput = Array.isArray(value) ? value : []
 
   return (
     <div>
-      <Button sx={btStyle} onClick={handleOpen}>
+      {/* <Button sx={btStyle} onClick={handleOpen}>
         {buttonName}
-      </Button>
+      </Button> */}
       <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
-        open={open}
+        open={onOpen}
         onClose={handleClose}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
@@ -50,7 +54,7 @@ export default function FormModal({ title, buttonName, children }) {
           }
         }}
       >
-        <Fade in={open}>
+        <Fade in={onOpen}>
           <Box sx={style}>
             <Card fullWidth>
               <CardHeader title={title} titleTypographyProps={{ variant: 'h6' }} />
@@ -59,18 +63,24 @@ export default function FormModal({ title, buttonName, children }) {
                 <form>
                   <Grid container spacing={5}>
                     <Grid item xs={12}>
-                      {children}
+                      {valueInput.map(item => {
+                        return (
+                          <div key={item.field}>
+                            <TextField fullWidth label={item.field} placeholder={item.label} margin='dense' />
+                          </div>
+                        )
+                      })}
                     </Grid>
                   </Grid>
                 </form>
               </CardContent>
               <Divider sx={{ margin: 0 }} />
-              <CardActions>
+              <CardActions style={{ justifyContent: 'flex-end' }}>
+                <Button size='large' color='secondary' variant='outlined' onClick={() => handleClose()}>
+                  Cancel
+                </Button>
                 <Button size='large' type='submit' sx={{ mr: 2 }} variant='contained'>
                   Submit
-                </Button>
-                <Button size='large' color='secondary' variant='outlined'>
-                  Cancel
                 </Button>
               </CardActions>
             </Card>

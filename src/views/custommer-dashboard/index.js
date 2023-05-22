@@ -1,23 +1,14 @@
 import React, { useState } from 'react'
 import TableStickyHeader from '../tables/TableStickyHeader'
 import { Box, Button, Modal, Typography } from '@mui/material'
+import FormLayouts from 'src/pages/form-layouts'
+import FormModal from '../form-layouts/FormModal'
+import { inputAddCustomer } from './constant'
 
 function createData(name, code, population, size) {
   const density = population / size
 
   return { name, code, population, size, density }
-}
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4
 }
 
 function ListCustomer() {
@@ -89,18 +80,14 @@ function ListCustomer() {
         <TableStickyHeader rows={rows} columns={columns} />
       </div>
       {isOpenModal && (
-        <Modal
-          open={isOpenModal}
+        <FormModal
+          onOpen={isOpenModal}
           onClose={() => setIsOpenModal(false)}
+          value={inputAddCustomer}
+          title='Add Customer'
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
-        >
-          <Box sx={style}>
-            <Typography id='modal-modal-title' variant='h6' component='h2'>
-              Text in a modal
-            </Typography>
-          </Box>
-        </Modal>
+        ></FormModal>
       )}
     </div>
   )
