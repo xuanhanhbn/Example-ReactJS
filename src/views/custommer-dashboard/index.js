@@ -1,66 +1,86 @@
 import React, { useState } from 'react'
 import TableStickyHeader from '../tables/TableStickyHeader'
-import { Box, Button, Modal, Typography } from '@mui/material'
+import { Box, Button, Modal, TextField, Typography } from '@mui/material'
 import FormLayouts from 'src/pages/form-layouts'
 import FormModal from '../form-layouts/FormModal'
-import { inputAddCustomer } from './constant'
+import { columns, inputAddCustomer, rows } from './constant'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
 
-function createData(name, code, population, size) {
-  const density = population / size
-
-  return { name, code, population, size, density }
+const defaultInputValues = {
+  userId: '',
+  email: '',
+  phoneNumber: ''
 }
 
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+const validationSchema = Yup.object().shape({
+  userId: Yup.string().required('User ID is required').min(6, 'User ID must be at least 6 characters'),
+  email: Yup.string().required('Email is required').email('Email is invalid.'),
+  phoneNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
+})
+
 function ListCustomer() {
-  const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-    {
-      id: 'population',
-      label: 'Population',
-      minWidth: 170,
-      align: 'right',
-      format: value => value.toLocaleString('en-US')
-    },
-    {
-      id: 'size',
-      label: 'Size\u00a0(km\u00b2)',
-      minWidth: 170,
-      align: 'right',
-      format: value => value.toLocaleString('en-US')
-    },
-    {
-      id: 'density',
-      label: 'Density',
-      minWidth: 170,
-      align: 'right',
-      format: value => value.toFixed(2)
-    }
-  ]
-
-  const rows = [
-    createData('India', 'IN', 1324171354, 3287263),
-    createData('China', 'CN', 1403500365, 9596961),
-    createData('Italy', 'IT', 60483973, 301340),
-    createData('United States', 'US', 327167434, 9833520),
-    createData('Canada', 'CA', 37602103, 9984670),
-    createData('Australia', 'AU', 25475400, 7692024),
-    createData('Germany', 'DE', 83019200, 357578),
-    createData('Ireland', 'IE', 4857000, 70273),
-    createData('Mexico', 'MX', 126577691, 1972550),
-    createData('Japan', 'JP', 126317000, 377973),
-    createData('France', 'FR', 67022000, 640679),
-    createData('United Kingdom', 'GB', 67545757, 242495),
-    createData('Russia', 'RU', 146793744, 17098246),
-    createData('Nigeria', 'NG', 200962417, 923768),
-    createData('Brazil', 'BR', 210147125, 8515767)
-  ]
-
   const [isOpenModal, setIsOpenModal] = useState(false)
+  const [values, setValues] = useState(defaultInputValues)
 
+  const modalStyles = {
+    inputFields: {
+      marginTop: '20px',
+      marginBottom: '15px',
+      '.MuiFormControl-root': {
+        marginBottom: '20px'
+      }
+    }
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  })
+
+  // Xử lí mở modal
   const handleOpenModalCreateCustomer = () => {
     setIsOpenModal(true)
   }
+
+  // Xử lí khi ấn submit
+  const addUser = data => {
+    console.log('data: ', data)
+  }
+
+  // Xử lí onChange Input
+  const handleChange = value => {
+    console.log('value: ', value)
+    setValues(value)
+  }
+
+  // content input
+  const getContent = () => (
+    <Box sx={modalStyles.inputFields}>
+      {inputAddCustomer.map(item => (
+        <TextField
+          key={`inputAdd_${item.field}`}
+          placeholder={item.lable}
+          name={item.field}
+          label={item.lable}
+          fullWidth
+          required
+          {...register('userId')}
+          error={errors.userId ? true : false}
+          helperText={errors.userId?.message}
+          value={values.userId}
+          onChange={event => handleChange({ ...values, userId: event.target.value })}
+        />
+      ))}
+    </Box>
+  )
 
   return (
     <div>
@@ -83,11 +103,12 @@ function ListCustomer() {
         <FormModal
           onOpen={isOpenModal}
           onClose={() => setIsOpenModal(false)}
-          value={inputAddCustomer}
+          handleSubmit={handleSubmit(addUser)}
+          value={getContent()}
           title='Add Customer'
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
-        ></FormModal>
+        />
       )}
     </div>
   )
