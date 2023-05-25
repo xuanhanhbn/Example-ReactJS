@@ -1,3 +1,11 @@
+export const CLEANUP = 'src/views/CLEANUP'
+
+export const CREATE_ITEM = 'src/views/CREATE_ITEM'
+
+export const CREATE_ITEM_SUCCESS = 'src/views/CREATE_ITEM_SUCCESS'
+
+export const CREATE_ITEM_FAILED = 'src/views/CREATE_ITEM_FAILED'
+
 export const inputAddCustomer = [
   {
     field: 'userId',
@@ -10,6 +18,21 @@ export const inputAddCustomer = [
   {
     field: 'phoneNumber',
     lable: 'Phone Number'
+  }
+]
+
+export const inputSearchCustomer = [
+  {
+    field: 'name',
+    label: 'Name'
+  },
+  {
+    field: 'age',
+    label: 'Age'
+  },
+  {
+    field: 'position',
+    label: 'Position'
   }
 ]
 
@@ -42,6 +65,12 @@ export const columns = [
     minWidth: 170,
     align: 'right',
     format: value => value.toFixed(2)
+  },
+  {
+    id: 'actions',
+    label: 'Actions',
+    minWidth: 170,
+    align: 'center'
   }
 ]
 

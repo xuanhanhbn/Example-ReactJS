@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import TableStickyHeader from '../tables/TableStickyHeader'
 import { Box, Button, Modal, TextField, Typography } from '@mui/material'
 import FormLayouts from 'src/pages/form-layouts'
 import FormModal from '../form-layouts/FormModal'
-import { columns, inputAddCustomer, rows } from './constant'
+import { columns, inputAddCustomer, inputSearchCustomer, rows } from './constant'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
+import { MapSearchOutline } from 'mdi-material-ui'
+import { Breadcrumb } from 'antd'
+import ApiContext from '../../../components/store/context'
 
 const defaultInputValues = {
   userId: '',
@@ -40,6 +43,7 @@ function ListCustomer() {
   const {
     register,
     handleSubmit,
+    clearErrors,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(validationSchema)
@@ -48,6 +52,12 @@ function ListCustomer() {
   // Xử lí mở modal
   const handleOpenModalCreateCustomer = () => {
     setIsOpenModal(true)
+  }
+
+  // Xử lí đóng modal
+  const handleCloseModalCreate = () => {
+    setIsOpenModal(false)
+    clearErrors()
   }
 
   // Xử lí khi ấn submit
@@ -83,13 +93,28 @@ function ListCustomer() {
   )
 
   return (
-    <div>
+    <div style={{ flex: 1 }}>
+      <Breadcrumb>
+        <Breadcrumb.Item>Đăng ký dịch vụ</Breadcrumb.Item>
+        <Breadcrumb.Item>Khách hàng cá nhân</Breadcrumb.Item>
+      </Breadcrumb>
       {/* Button Add */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, marginTop: 50 }}>
+        {inputSearchCustomer.map(inputSearch => (
+          <TextField
+            key={inputSearch.field}
+            label={inputSearch.label}
+            name={inputSearch.field}
+            sx={{ marginLeft: 10 }}
+          />
+        ))}
+        <Button>
+          <MapSearchOutline />
+        </Button>
         <Button
           size='large'
           variant='contained'
-          sx={{ marginBottom: 7 }}
+          sx={{ marginLeft: 10 }}
           onClick={() => handleOpenModalCreateCustomer()}
         >
           Thêm mới
@@ -102,7 +127,7 @@ function ListCustomer() {
       {isOpenModal && (
         <FormModal
           onOpen={isOpenModal}
-          onClose={() => setIsOpenModal(false)}
+          onClose={() => handleCloseModalCreate()}
           handleSubmit={handleSubmit(addUser)}
           value={getContent()}
           title='Add Customer'

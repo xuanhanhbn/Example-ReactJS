@@ -53,7 +53,7 @@ export default function FormModal(props) {
             <Card fullWidth>
               <CardHeader title={title} titleTypographyProps={{ variant: 'h6' }} />
               <Divider sx={{ margin: 0 }} />
-              <FormControl required>
+              <FormControl>
                 <CardContent>
                   <Grid container spacing={5}>
                     <Grid item xs={12}>

@@ -47,7 +47,7 @@ const ContentWrapper = styled('main')(({ theme }) => ({
 
 const VerticalLayout = props => {
   // ** Props
-  const { settings, children, scrollToTop } = props
+  const { settings, children, scrollToTop, verticalNavItems } = props
 
   // ** Vars
   const { contentWidth } = settings

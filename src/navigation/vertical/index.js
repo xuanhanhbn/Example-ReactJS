@@ -11,57 +11,60 @@ import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import { NotificationClearAll } from 'mdi-material-ui'
 
-
-
-
-
 const navigation = () => {
   return [
     {
       title: 'Dashboard',
       icon: HomeOutline,
-      path: '/'
+      path: '/',
+      isShowMenu: true
     },
     {
       title: 'Account Settings',
       icon: AccountCogOutline,
-      path: '/account-settings'
+      path: '/account-settings',
+      isShowMenu: true
     },
     {
       title: 'Customer',
       icon: AccountCogOutline,
-      path: '/customer-dashboard'
+      path: '/customer-dashboard',
+      isShowMenu: true
     },
 
     {
-      sectionTitle: 'User Interface'
+      sectionTitle: 'User Interface',
+      isShowMenu: true
     },
     {
       title: 'Typography',
       icon: FormatLetterCase,
-      path: '/typography'
+      path: '/typography',
+      isShowMenu: true
     },
     {
       title: 'Icons',
       path: '/icons',
-      icon: GoogleCirclesExtended
+      icon: GoogleCirclesExtended,
+      isShowMenu: true
     },
     {
       title: 'Cards',
       icon: CreditCardOutline,
-      path: '/cards'
+      path: '/cards',
+      isShowMenu: true
     },
     {
       title: 'Tables',
       icon: Table,
-      path: '/tables'
+      path: '/tables',
+      isShowMenu: true
     },
     {
       icon: CubeOutline,
       title: 'Form Layouts',
       path: '/form-layouts'
-    },
-
+    }
   ]
 }
 

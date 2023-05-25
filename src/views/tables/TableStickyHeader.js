@@ -10,6 +10,9 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
+import { Icon, Link } from '@mui/material'
+import HomeOutline from 'mdi-material-ui/HomeOutline'
+import { Delete } from 'mdi-material-ui'
 
 const columnsDefault = [
   { id: 'name', label: 'Name', minWidth: 170 },
@@ -86,9 +89,11 @@ const TableStickyHeader = props => {
           <TableHead>
             <TableRow>
               {columsDefault.map(column => (
-                <TableCell key={column.id} align={column.align} sx={{ minWidth: column.minWidth }}>
-                  {column.label}
-                </TableCell>
+                <>
+                  <TableCell key={column.id} align={column.align} sx={{ minWidth: column.minWidth }}>
+                    {column.label}
+                  </TableCell>
+                </>
               ))}
             </TableRow>
           </TableHead>
@@ -102,6 +107,14 @@ const TableStickyHeader = props => {
                     return (
                       <TableCell key={column.id} align={column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
+                        {column.id === 'actions' && (
+                          <>
+                            <Link href='/account-settings/'>
+                              <HomeOutline />
+                            </Link>
+                            <Delete color='red' />
+                          </>
+                        )}
                       </TableCell>
                     )
                   })}
