@@ -23,10 +23,6 @@ const style = {
   boxShadow: 24
 }
 
-const btStyle = {
-  bgcolor: 'white',
-  boxShadow: 10
-}
 
 export default function FormModal(props) {
   const { title, onOpen, onClose, handleSubmit, value } = props
