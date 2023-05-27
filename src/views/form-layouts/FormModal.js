@@ -23,13 +23,8 @@ const style = {
   boxShadow: 24
 }
 
-const btStyle = {
-  bgcolor: 'white',
-  boxShadow: 10
-}
-
 export default function FormModal(props) {
-  const { title, onOpen, onClose, handleSubmit, value } = props
+  const { title, onOpen, onClose, handleSubmitForm, value } = props
 
   const handleClose = () => onClose()
 
@@ -53,7 +48,7 @@ export default function FormModal(props) {
             <Card fullWidth>
               <CardHeader title={title} titleTypographyProps={{ variant: 'h6' }} />
               <Divider sx={{ margin: 0 }} />
-              <FormControl>
+              <FormControl required>
                 <CardContent>
                   <Grid container spacing={5}>
                     <Grid item xs={12}>
@@ -66,7 +61,7 @@ export default function FormModal(props) {
                   <Button size='large' color='secondary' variant='outlined' onClick={() => handleClose()}>
                     Cancel
                   </Button>
-                  <Button size='large' type='submit' sx={{ mr: 2 }} variant='contained' onClick={() => handleSubmit()}>
+                  <Button size='large' type='submit' sx={{ mr: 2 }} variant='contained' onClick={handleSubmitForm}>
                     Submit
                   </Button>
                 </CardActions>
