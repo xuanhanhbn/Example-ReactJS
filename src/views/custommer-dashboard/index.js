@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react'
 import TableStickyHeader from '../tables/TableStickyHeader'
-import { Box, Button, Modal, TextField, Typography } from '@mui/material'
+import { Box, Button, Input, InputBase, Modal, TextField, Typography } from '@mui/material'
 import FormLayouts from 'src/pages/form-layouts'
 import FormModal from '../form-layouts/FormModal'
 import { columns, inputAddCustomer, inputSearchCustomer, rows } from './constant'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import { MapSearchOutline } from 'mdi-material-ui'
 import { Breadcrumb } from 'antd'
-import ApiContext from '../../../components/store/context'
+import FormCreate from './components/FormCreate'
 
 const defaultInputValues = {
   userId: '',
@@ -27,6 +27,12 @@ const validationSchema = Yup.object().shape({
 })
 
 function ListCustomer() {
+  const baseDataRequest = {
+    userId: '',
+    email: '',
+    phoneNumber: ''
+  }
+  const [dataRequest, setDataRequest] = useState(baseDataRequest)
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [values, setValues] = useState(defaultInputValues)
 
@@ -44,6 +50,7 @@ function ListCustomer() {
     register,
     handleSubmit,
     clearErrors,
+    control,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(validationSchema)
@@ -61,34 +68,82 @@ function ListCustomer() {
   }
 
   // Xử lí khi ấn submit
-  const addUser = data => {
+  const onSubmit = data => {
     console.log('data: ', data)
   }
 
   // Xử lí onChange Input
-  const handleChange = value => {
-    console.log('value: ', value)
+  const handleChange = (value, item) => {
+    console.log('value:: ', value)
     setValues(value)
   }
 
   // content input
+  // const getContent = () => (
+  //   <Box sx={modalStyles.inputFields}>
+  //     <TextField
+  //       placeholder='User ID'
+  //       name='userId'
+  //       label='User ID'
+  //       required
+  //       {...register('userId')}
+  //       error={errors.userId ? true : false}
+  //       helperText={errors.userId?.message}
+  //       value={values.userId}
+  //       onChange={event => handleChange({ ...values, userId: event.target.value })}
+  //     />
+  //     <TextField
+  //       placeholder='Email'
+  //       name='email'
+  //       label='Email'
+  //       required
+  //       {...register('email')}
+  //       error={errors.email ? true : false}
+  //       helperText={errors.email?.message}
+  //       value={values.email}
+  //       onChange={event => handleChange({ ...values, email: event.target.value })}
+  //     />
+  //     <TextField
+  //       placeholder='Phone number'
+  //       name='phoneNumber'
+  //       label='Phone number'
+  //       required
+  //       {...register('phoneNumber')}
+  //       error={errors.phoneNumber ? true : false}
+  //       helperText={errors.phoneNumber?.message}
+  //       value={values.phoneNumber}
+  //       onChange={event => handleChange({ ...values, phoneNumber: event.target.value })}
+  //     />
+  //   </Box>
+  // )
   const getContent = () => (
     <Box sx={modalStyles.inputFields}>
-      {inputAddCustomer.map(item => (
-        <TextField
-          key={`inputAdd_${item.field}`}
-          placeholder={item.lable}
-          name={item.field}
-          label={item.lable}
-          fullWidth
-          required
-          {...register('userId')}
-          error={errors.userId ? true : false}
-          helperText={errors.userId?.message}
-          value={values.userId}
-          onChange={event => handleChange({ ...values, userId: event.target.value })}
-        />
-      ))}
+      {inputAddCustomer.map(input => {
+        // const { field } = input
+        return (
+          <div key={input.field}>
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                console.log('value: ', value)
+
+                return (
+                  <TextField
+                    key={input.field}
+                    placeholder={input.lable}
+                    name={input.field}
+                    label={input.lable}
+                    value={value}
+                    onChange={onChange}
+                    required
+                  />
+                )
+              }}
+              name={input.field}
+            />
+          </div>
+        )
+      })}
     </Box>
   )
 
@@ -125,10 +180,19 @@ function ListCustomer() {
         <TableStickyHeader rows={rows} columns={columns} />
       </div>
       {isOpenModal && (
-        <FormModal
+        // <FormModal
+        //   onOpen={isOpenModal}
+        //   onClose={() => handleCloseModalCreate()}
+        //   handleSubmitForm={handleSubmit(onSubmit)}
+        //   value={getContent()}
+        //   title='Add Customer'
+        //   aria-labelledby='modal-modal-title'
+        //   aria-describedby='modal-modal-description'
+        // />
+        <FormCreate
           onOpen={isOpenModal}
           onClose={() => handleCloseModalCreate()}
-          handleSubmit={handleSubmit(addUser)}
+          handleSubmitForm={handleSubmit(onSubmit)}
           value={getContent()}
           title='Add Customer'
           aria-labelledby='modal-modal-title'
@@ -137,6 +201,17 @@ function ListCustomer() {
       )}
     </div>
   )
+}
+
+{
+  /* <Controller
+key={item.field}
+control={control}
+render={({ field: { onChange, onBlur, value } }) => (
+  <TextField onChangeText={onChange} value={value} autoCapitalize='none' placeholder={item.lable} />
+)}
+name={item.field}
+/> */
 }
 
 export default ListCustomer
