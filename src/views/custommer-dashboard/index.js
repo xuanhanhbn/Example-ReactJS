@@ -116,36 +116,36 @@ function ListCustomer() {
   //     />
   //   </Box>
   // )
-  const getContent = () => (
-    <Box sx={modalStyles.inputFields}>
-      {inputAddCustomer.map(input => {
-        // const { field } = input
-        return (
-          <div key={input.field}>
-            <Controller
-              control={control}
-              render={({ field: { onChange, value } }) => {
-                console.log('value: ', value)
+  // const getContent = () => (
+  //   <Box sx={modalStyles.inputFields}>
+  //     {inputAddCustomer.map(input => {
+  //       // const { field } = input
+  //       return (
+  //         <div key={input.field}>
+  //           <Controller
+  //             control={control}
+  //             render={({ field: { onChange, value } }) => {
+  //               console.log('value: ', value)
 
-                return (
-                  <TextField
-                    key={input.field}
-                    placeholder={input.lable}
-                    name={input.field}
-                    label={input.lable}
-                    value={value}
-                    onChange={onChange}
-                    required
-                  />
-                )
-              }}
-              name={input.field}
-            />
-          </div>
-        )
-      })}
-    </Box>
-  )
+  //               return (
+  //                 <TextField
+  //                   key={input.field}
+  //                   placeholder={input.lable}
+  //                   name={input.field}
+  //                   label={input.lable}
+  //                   value={value}
+  //                   onChange={onChange}
+  //                   required
+  //                 />
+  //               )
+  //             }}
+  //             name={input.field}
+  //           />
+  //         </div>
+  //       )
+  //     })}
+  //   </Box>
+  // )
 
   return (
     <div style={{ flex: 1 }}>
@@ -193,7 +193,7 @@ function ListCustomer() {
           onOpen={isOpenModal}
           onClose={() => handleCloseModalCreate()}
           handleSubmitForm={handleSubmit(onSubmit)}
-          value={getContent()}
+          // value={getContent()}
           title='Add Customer'
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
