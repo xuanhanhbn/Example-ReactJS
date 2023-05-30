@@ -70,6 +70,7 @@ function FormCreate(props) {
   const handleClose = () => onClose()
 
   const onSubmit = data => {
+    console.log('datA: ', data)
     dispatch(customerActions.registerAccount(data))
   }
 
@@ -107,9 +108,6 @@ function FormCreate(props) {
                               <Controller
                                 control={control}
                                 render={({ field: { onChange, value } }) => {
-                                  const { field } = input
-                                  const message = errors[field] && errors[field].message
-
                                   return (
                                     <TextField
                                       key={input.field}
