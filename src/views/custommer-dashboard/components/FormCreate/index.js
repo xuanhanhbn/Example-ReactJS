@@ -20,6 +20,8 @@ import ApiContext from 'src/@core/store/context'
 import { useContext } from 'react'
 import { get, postApiProduct } from './api'
 import api, { BASE_URL } from 'src/utils/baseApi'
+import { useDispatch, useSelector } from 'react-redux'
+import { customerActions, makeSelectCustomer } from '../../customerSlice'
 
 const style = {
   position: 'absolute',
@@ -52,7 +54,7 @@ const validationSchema = Yup.object().shape({
 })
 function FormCreate(props) {
   const { title, onOpen, onClose, handleSubmitForm, value } = props
-  const { state, dispatch } = useContext(ApiContext)
+  const dispatch = useDispatch()
 
   const {
     register,
@@ -64,16 +66,11 @@ function FormCreate(props) {
   } = useForm({
     resolver: yupResolver(validationSchema)
   })
+  const globalData = useSelector(makeSelectCustomer)
   const handleClose = () => onClose()
 
-  const onSubmit = async data => {
-    try {
-      const url = `${BASE_URL}todos/1`
-      const res = await postApiProduct(url, data)
-      console.log('res: ', res)
-    } catch (error) {
-      console.log('error: ', error)
-    }
+  const onSubmit = data => {
+    dispatch(customerActions.registerAccount(data))
   }
 
   return (

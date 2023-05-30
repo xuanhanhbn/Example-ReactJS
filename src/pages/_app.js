@@ -27,7 +27,8 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 // ** Global css styles
 import '../../styles/globals.css'
 import INIT_STATE from 'src/@core/store/initState'
-import MyContextProvider from 'src/@core/store/reducer'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -54,7 +55,7 @@ const App = props => {
   const localState = INIT_STATE
 
   return (
-    <MyContextProvider>
+    <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
           <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
@@ -74,7 +75,7 @@ const App = props => {
           </SettingsConsumer>
         </SettingsProvider>
       </CacheProvider>
-    </MyContextProvider>
+    </Provider>
   )
 }
 
