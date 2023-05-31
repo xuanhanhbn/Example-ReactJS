@@ -87,7 +87,6 @@ const LoginPage = () => {
 
   const onSubmit = data => {
     console.log('datA: ', data)
-    dispatch(customerActions.registerAccount(data))
   }
 
   const globalData = useSelector(makeSelectCustomer)

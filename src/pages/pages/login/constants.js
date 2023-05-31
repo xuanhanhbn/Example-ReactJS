@@ -1,7 +1,7 @@
 export const inputLogin = [
     {
         field: 'userName',
-        lable: 'UserName'
+        lable: 'User Name'
     },
     {
         field: 'password',
