@@ -29,6 +29,9 @@ import * as Yup from 'yup'
 import { makeSelectCustomer, customerActions } from './customerSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
+
+
+
 // ** Icons Imports
 import Google from 'mdi-material-ui/Google'
 import Github from 'mdi-material-ui/Github'
@@ -207,10 +210,12 @@ const LoginPage = () => {
                           name={input.field}
                           label={input.lable}
                           value={value}
+                          type={input.type}
                           onChange={onChange}
                           required
                           fullWidth
                           style={{ marginBottom: 10 }}
+                          
                         />
                       )
                     }}

@@ -1,10 +1,15 @@
+
+
 export const inputLogin = [
     {
         field: 'userName',
-        lable: 'User Name'
+        lable: 'User Name',
+        type: 'text'
     },
     {
         field: 'password',
-        lable: 'Password'
+        lable: 'Password',
+        type: 'password',
+        icon: {}
     }
 ]

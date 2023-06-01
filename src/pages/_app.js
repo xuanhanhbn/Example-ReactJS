@@ -55,7 +55,7 @@ const App = props => {
   const localState = INIT_STATE
 
   return (
-    <Provider store={store}>
+    // <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
           <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
@@ -75,7 +75,7 @@ const App = props => {
           </SettingsConsumer>
         </SettingsProvider>
       </CacheProvider>
-    </Provider>
+    // </Provider>
   )
 }
 
