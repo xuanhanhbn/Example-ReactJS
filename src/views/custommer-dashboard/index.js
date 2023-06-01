@@ -19,7 +19,6 @@ function ListCustomer() {
   // Xử lí đóng modal
   const handleCloseModalCreate = () => {
     setIsOpenModal(false)
-    clearErrors()
   }
 
   return (

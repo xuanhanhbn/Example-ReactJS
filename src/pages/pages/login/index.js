@@ -26,11 +26,8 @@ import Grid from '@mui/material/Grid'
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
-import { makeSelectCustomer, customerActions } from './customerSlice'
+import { makeSelectCustomer, customerActions, loginPageActions, makeSelectLogin } from './loginSlice'
 import { useDispatch, useSelector } from 'react-redux'
-
-
-
 
 // ** Icons Imports
 import Google from 'mdi-material-ui/Google'
@@ -51,7 +48,7 @@ import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 import input from 'src/@core/theme/overrides/input'
 
 const validationSchema = Yup.object().shape({
-  userName: Yup.string().required('User name is required'),
+  identifier: Yup.string().required('User name is required'),
   password: Yup.string().required('Password is required')
 })
 
@@ -87,12 +84,18 @@ const LoginPage = () => {
   } = useForm({
     resolver: yupResolver(validationSchema)
   })
+  const dispatch = useDispatch()
 
   const onSubmit = data => {
-    console.log('datA: ', data)
+    const formData = new FormData()
+    formData.append('identifier', data.identifier.trim())
+    formData.append('password', data.password)
+    formData.append('grant_type', 'password')
+    formData.append('scope', 'read')
+    dispatch(loginPageActions.loginPage(formData))
   }
 
-  const globalData = useSelector(makeSelectCustomer)
+  const globalData = useSelector(makeSelectLogin)
 
   // ** Hook
   const theme = useTheme()
@@ -215,7 +218,6 @@ const LoginPage = () => {
                           required
                           fullWidth
                           style={{ marginBottom: 10 }}
-                          
                         />
                       )
                     }}

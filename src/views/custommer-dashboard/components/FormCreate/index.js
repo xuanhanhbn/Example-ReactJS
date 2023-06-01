@@ -70,7 +70,6 @@ function FormCreate(props) {
   const handleClose = () => onClose()
 
   const onSubmit = data => {
-    console.log('datA: ', data)
     dispatch(customerActions.registerAccount(data))
   }
 
