@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+// import AsyncStorage from '@react-native-async-storage/async-storage'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
@@ -10,23 +10,27 @@ import { api } from './api'
 import customerSaga from 'src/views/custommer-dashboard/customerSaga'
 import customerReducer from 'src/views/custommer-dashboard/customerSlice'
 
+import loginReducer from './pages/login/loginSlice'
+import loginSaga from './pages/login/loginSaga'
+
 // registry reducer
 const reducers = combineReducers({
-  customer: customerReducer
+  customer: customerReducer,
+  login: loginReducer
 })
 
 // registry sagas
 function* rootSaga() {
-  yield all([customerSaga()])
+  yield all([customerSaga(), loginSaga()])
 }
 
-const persistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-  whitelist: ['theme']
-}
+// const persistConfig = {
+//   key: 'root',
+//   storage: AsyncStorage,
+//   whitelist: ['theme']
+// }
 
-const persistedReducer = persistReducer(persistConfig, reducers)
+// const persistedReducer = persistReducer(persistConfig, reducers)
 
 // const allSagaMiddleWare = [];
 
@@ -35,7 +39,7 @@ const sagaMiddleware = createSagaMiddleware({})
 // const enhancers = [];
 // enhancers.push(applyMiddleware(...allSagaMiddleWare));
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: reducers,
   middleware: getDefaultMiddleware => {
     const middlewares = getDefaultMiddleware({
       serializableCheck: {

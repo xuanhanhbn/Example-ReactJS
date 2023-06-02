@@ -5,26 +5,26 @@ const initialState = {
   errorMessage: '',
   isSuccess: false,
   isError: false,
-  dataRegister: [],
+  dataLogin: [],
   dataError: {}
 }
 
-const customer = createSlice({
-  name: 'customer',
+const login = createSlice({
+  name: 'loginPage',
   initialState,
   reducers: {
-    registerAccount(state) {
+    loginPage(state) {
       state.isLoading = true
     },
-    registerAccountFailed(state, action) {
+    loginPageFailed(state, action) {
       state.isLoading = false
       state.isError = true
       state.dataError = action.payload || {}
       state.errorMessage = ''
     },
-    registerAccountSuccess(state, action) {
+    loginPageSuccess(state, action) {
       state.isLoading = false
-      state.dataRegister = action.payload || []
+      state.dataLogin = action.payload || []
       state.isSuccess = true
     },
     clear(state) {
@@ -35,8 +35,8 @@ const customer = createSlice({
   }
 })
 
-export const customerActions = customer.actions
+export const loginPageActions = login.actions
 
-export const makeSelectCustomer = state => state.customer
+export const makeSelectLogin = state => state.login
 
-export default customer.reducer
+export default login.reducer
