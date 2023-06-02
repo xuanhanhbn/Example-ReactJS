@@ -92,7 +92,7 @@ const LoginPage = () => {
     console.log('datA: ', data)
   }
 
-  const globalData = useSelector(makeSelectCustomer)
+
 
   // ** Hook
   const theme = useTheme()

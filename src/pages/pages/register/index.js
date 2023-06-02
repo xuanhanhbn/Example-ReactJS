@@ -38,6 +38,19 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
 
+import { inputRegister } from './constants'
+import Grid from '@mui/material/Grid'
+import { Controller, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+
+const validationSchema = Yup.object().shape({
+  userName: Yup.string().required('User name is required'),
+  password: Yup.string().required('Password is required'),
+  email: Yup.string().required('Email is required'),
+  confirmPassword: Yup.string().required('Confirm Password is required').oneOf([Yup.ref("password")], "Passwords do not match"),
+})
+
 // ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
@@ -64,6 +77,18 @@ const RegisterPage = () => {
     password: '',
     showPassword: false
   })
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  })
+
+  const onSubmit = data => {
+    console.log('datA: ', data)
+  }
 
   // ** Hook
   const theme = useTheme()
@@ -164,30 +189,37 @@ const RegisterPage = () => {
             <Typography variant='body2'>Make your app management easy and fun!</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='username' label='Username' sx={{ marginBottom: 4 }} />
-            <TextField fullWidth type='email' label='Email' sx={{ marginBottom: 4 }} />
-            <FormControl fullWidth>
-              <InputLabel htmlFor='auth-register-password'>Password</InputLabel>
-              <OutlinedInput
-                label='Password'
-                value={values.password}
-                id='auth-register-password'
-                onChange={handleChange('password')}
-                type={values.showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      edge='end'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      aria-label='toggle password visibility'
-                    >
-                      {values.showPassword ? <EyeOutline fontSize='small' /> : <EyeOffOutline fontSize='small' />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
+            {inputRegister.map(input => {
+              const { field } = input
+              const message = errors[field] && errors[field].message
+
+              return (
+                <Grid key={input.field}>
+                  <Controller
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                      return (
+                        <TextField
+                          key={input.field}
+                          placeholder={input.lable}
+                          name={input.field}
+                          label={input.lable}
+                          value={value}
+                          type={input.type}
+                          onChange={onChange}
+                          required
+                          fullWidth
+                          style={{ marginBottom: 10 }}
+                        />
+                      )
+                    }}
+                    name={input.field}
+                  />
+                  <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{message}</Typography>
+                </Grid>
+              )
+            })}
+
             <FormControlLabel
               control={<Checkbox />}
               label={
@@ -199,7 +231,7 @@ const RegisterPage = () => {
                 </Fragment>
               }
             />
-            <Button fullWidth size='large' type='submit' variant='contained' sx={{ marginBottom: 7 }}>
+            <Button fullWidth size='large' type='submit' variant='contained' onClick={handleSubmit(onSubmit)} sx={{ marginBottom: 7 }}>
               Sign up
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -212,31 +244,7 @@ const RegisterPage = () => {
                 </Link>
               </Typography>
             </Box>
-            <Divider sx={{ my: 5 }}>or</Divider>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Facebook sx={{ color: '#497ce2' }} />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Twitter sx={{ color: '#1da1f2' }} />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Github
-                    sx={{ color: theme => (theme.palette.mode === 'light' ? '#272727' : theme.palette.grey[300]) }}
-                  />
-                </IconButton>
-              </Link>
-              <Link href='/' passHref>
-                <IconButton component='a' onClick={e => e.preventDefault()}>
-                  <Google sx={{ color: '#db4437' }} />
-                </IconButton>
-              </Link>
-            </Box>
+           
           </form>
         </CardContent>
       </Card>
