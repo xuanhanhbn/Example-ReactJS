@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -21,6 +21,13 @@ import { styled, useTheme } from '@mui/material/styles'
 import MuiCard from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel from '@mui/material/FormControlLabel'
+import { inputLogin } from './constants'
+import Grid from '@mui/material/Grid'
+import { Controller, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+import { makeSelectCustomer, customerActions, loginPageActions, makeSelectLogin } from './loginSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 // ** Icons Imports
 import Google from 'mdi-material-ui/Google'
@@ -38,6 +45,12 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustration'
+import input from 'src/@core/theme/overrides/input'
+
+const validationSchema = Yup.object().shape({
+  identifier: Yup.string().required('User name is required'),
+  password: Yup.string().required('Password is required')
+})
 
 // ** Styled Components
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -63,6 +76,29 @@ const LoginPage = () => {
     password: '',
     showPassword: false
   })
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  })
+  const dispatch = useDispatch()
+
+  const onSubmit = data => {
+    dispatch(loginPageActions.loginPage(data))
+  }
+
+  const dataLoginPage = useSelector(makeSelectLogin)
+  const { isSuccess, dataLogin } = dataLoginPage
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(loginPageActions.clear())
+      router.push('/')
+      localStorage.setItem('loginPage', JSON.stringify(dataLogin))
+    }
+  }, [isSuccess])
 
   // ** Hook
   const theme = useTheme()
@@ -164,29 +200,37 @@ const LoginPage = () => {
             <Typography variant='body2'>Please sign-in to your account and start the adventure</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} />
-            <FormControl fullWidth>
-              <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
-              <OutlinedInput
-                label='Password'
-                value={values.password}
-                id='auth-login-password'
-                onChange={handleChange('password')}
-                type={values.showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      edge='end'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      aria-label='toggle password visibility'
-                    >
-                      {values.showPassword ? <EyeOutline /> : <EyeOffOutline />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
+            {inputLogin.map(input => {
+              const { field } = input
+              const message = errors[field] && errors[field].message
+
+              return (
+                <Grid key={input.field}>
+                  <Controller
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                      return (
+                        <TextField
+                          key={input.field}
+                          placeholder={input.lable}
+                          name={input.field}
+                          label={input.lable}
+                          value={value}
+                          type={input.type}
+                          onChange={onChange}
+                          required
+                          fullWidth
+                          style={{ marginBottom: 10 }}
+                        />
+                      )
+                    }}
+                    name={input.field}
+                  />
+                  <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{message}</Typography>
+                </Grid>
+              )
+            })}
+
             <Box
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
@@ -200,7 +244,7 @@ const LoginPage = () => {
               size='large'
               variant='contained'
               sx={{ marginBottom: 7 }}
-              onClick={() => router.push('/')}
+              onClick={handleSubmit(onSubmit)}
             >
               Login
             </Button>

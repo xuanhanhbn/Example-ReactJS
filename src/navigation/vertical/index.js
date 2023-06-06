@@ -31,6 +31,13 @@ const navigation = () => {
       path: '/customer-dashboard',
       isShowMenu: true
     },
+      {
+    title: 'Login',
+    icon: Login,
+    path: '/pages/login',
+    openInNewTab: true,
+    isShowMenu: true
+  },
 
     {
       sectionTitle: 'User Interface',
