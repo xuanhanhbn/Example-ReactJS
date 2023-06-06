@@ -21,8 +21,17 @@ import StatisticsCard from 'src/views/dashboard/StatisticsCard'
 import WeeklyOverview from 'src/views/dashboard/WeeklyOverview'
 import DepositWithdraw from 'src/views/dashboard/DepositWithdraw'
 import SalesByCountries from 'src/views/dashboard/SalesByCountries'
+import { useEffect } from 'react'
+import { parseToken } from 'src/utils/jwt'
 
 const Dashboard = () => {
+  useEffect(() => {
+    const dataLoginPage = JSON.parse(localStorage.getItem('loginPage'))
+    console.log('dataLoginPage: ', dataLoginPage)
+    const test = parseToken(dataLoginPage)
+    console.log('test: ', test)
+  }, [])
+
   return (
     <ApexChartWrapper>
       <Grid container spacing={6}>

@@ -1,11 +1,3 @@
-export const CLEANUP = 'src/views/CLEANUP'
-
-export const CREATE_ITEM = 'src/views/CREATE_ITEM'
-
-export const CREATE_ITEM_SUCCESS = 'src/views/CREATE_ITEM_SUCCESS'
-
-export const CREATE_ITEM_FAILED = 'src/views/CREATE_ITEM_FAILED'
-
 export const inputAddCustomer = [
   {
     field: 'userId',
