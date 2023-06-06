@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import TableStickyHeader from '../tables/TableStickyHeader'
 import { Button, TextField } from '@mui/material'
-
+import Stack from '@mui/material/Stack'
 import { columns, inputSearchCustomer, rows } from './constant'
 
 import { Magnify } from 'mdi-material-ui'
@@ -38,43 +38,45 @@ function ListCustomer() {
       </Breadcrumb>
       {/* Button Add */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, marginTop: 50 }}>
-        <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-          {inputSearchCustomer.map(inputSearch => (
-            <Grid key={inputSearch.field} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-              <Grid item xs={2} sm={11}>
-                <Controller
-                  control={control}
-                  render={({ field: { onChange, value } }) => {
-                    return (
-                      <TextField
-                        placeholder={inputSearch.label}
-                        name={inputSearch.field}
-                        label={inputSearch.label}
-                        value={value}
-                        onChange={onChange}
-                        required
-                        fullWidth
-                        style={{ marginBottom: 10 }}
-                      />
-                    )
-                  }}
-                  name={inputSearch.field}
-                />
+        <form noValidate autoComplete='off' style={{ display: 'flex' }} onSubmit={e => e.preventDefault()}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
+            {inputSearchCustomer.map(inputSearch => (
+              <Grid key={inputSearch.field} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                <Grid item xs={2} sm={11}>
+                  <Controller
+                    control={control}
+                    render={({ field: { onChange, value } }) => {
+                      return (
+                        <TextField
+                          placeholder={inputSearch.label}
+                          name={inputSearch.field}
+                          label={inputSearch.label}
+                          value={value}
+                          onChange={onChange}
+                          required
+                          fullWidth
+                          style={{ marginBottom: 10 }}
+                        />
+                      )
+                    }}
+                    name={inputSearch.field}
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-          ))}
-          <Button onClick={handleSubmit(onSubmit)} style={{ marginLeft: 10 }}>
-            <Magnify style={{ fontSize: 24 }} />
-          </Button>
+            ))}
+            <Button onClick={handleSubmit(onSubmit)} style={{ marginLeft: 10 }}>
+              <Magnify style={{ fontSize: 24 }} />
+            </Button>
+            <Button
+              size='large'
+              variant='contained'
+              sx={{ marginLeft: 10 }}
+              onClick={() => handleOpenModalCreateCustomer()}
+            >
+              Thêm mới
+            </Button>
+          </Stack>
         </form>
-        <Button
-          size='large'
-          variant='contained'
-          sx={{ marginLeft: 10 }}
-          onClick={() => handleOpenModalCreateCustomer()}
-        >
-          Thêm mới
-        </Button>
       </div>
       {/* Table */}
       <div>
