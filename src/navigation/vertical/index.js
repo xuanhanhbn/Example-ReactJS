@@ -64,6 +64,12 @@ const navigation = () => {
       icon: CubeOutline,
       title: 'Form Layouts',
       path: '/form-layouts'
+    },
+    {
+      icon: Table,
+      title: 'TransHistory',
+      path: '/trans',
+      isShowMenu: true,
     }
   ]
 }
