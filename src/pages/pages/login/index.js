@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -87,15 +87,18 @@ const LoginPage = () => {
   const dispatch = useDispatch()
 
   const onSubmit = data => {
-    const formData = new FormData()
-    formData.append('identifier', data.identifier.trim())
-    formData.append('password', data.password)
-    formData.append('grant_type', 'password')
-    formData.append('scope', 'read')
-    dispatch(loginPageActions.loginPage(formData))
+    dispatch(loginPageActions.loginPage(data))
   }
 
-  const globalData = useSelector(makeSelectLogin)
+  const dataLoginPage = useSelector(makeSelectLogin)
+  const { isSuccess, dataLogin } = dataLoginPage
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(loginPageActions.clear())
+      router.push('/')
+      localStorage.setItem('loginPage', JSON.stringify(dataLogin))
+    }
+  }, [isSuccess])
 
   // ** Hook
   const theme = useTheme()

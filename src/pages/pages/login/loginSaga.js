@@ -3,14 +3,12 @@ import { customerActions, loginPageActions } from './loginSlice'
 import { postApiProduct } from './api'
 
 function* onLogin(data) {
-  console.log('data: ', data)
   const payload = data.payload || []
   const url = 'User/login'
   try {
     const response = yield call(postApiProduct, url, payload)
-    console.log('response: ', response)
-    if (response && response.data.status === 1) {
-      yield put(loginPageActions.loginPageSuccess())
+    if (response && response.status === 200) {
+      yield put(loginPageActions.loginPageSuccess(response.data))
     } else {
       yield put(loginPageActions.loginPageFailed())
     }
