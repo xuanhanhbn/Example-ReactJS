@@ -38,33 +38,35 @@ function ListCustomer() {
       </Breadcrumb>
       {/* Button Add */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, marginTop: 50 }}>
-        <form noValidate autoComplete='off' style={{ display: 'flex' }} onSubmit={e => e.preventDefault()}>
+        <form
+          noValidate
+          autoComplete='off'
+          style={{ display: 'flex', alignItems: 'center' }}
+          onSubmit={e => e.preventDefault()}
+        >
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
             {inputSearchCustomer.map(inputSearch => (
-              <Grid key={inputSearch.field} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                <Grid item xs={2} sm={11}>
-                  <Controller
-                    control={control}
-                    render={({ field: { onChange, value } }) => {
-                      return (
-                        <TextField
-                          placeholder={inputSearch.label}
-                          name={inputSearch.field}
-                          label={inputSearch.label}
-                          value={value}
-                          onChange={onChange}
-                          required
-                          fullWidth
-                          style={{ marginBottom: 10 }}
-                        />
-                      )
-                    }}
-                    name={inputSearch.field}
-                  />
-                </Grid>
-              </Grid>
+              <Controller
+                key={inputSearch.field}
+                control={control}
+                render={({ field: { onChange, value } }) => {
+                  return (
+                    <TextField
+                      placeholder={inputSearch.label}
+                      name={inputSearch.field}
+                      label={inputSearch.label}
+                      value={value}
+                      onChange={onChange}
+                      required
+                      fullWidth
+                      style={{ marginBottom: 10 }}
+                    />
+                  )
+                }}
+                name={inputSearch.field}
+              />
             ))}
-            <Button onClick={handleSubmit(onSubmit)} style={{ marginLeft: 10 }}>
+            <Button onClick={handleSubmit(onSubmit)}>
               <Magnify style={{ fontSize: 24 }} />
             </Button>
             <Button
@@ -72,6 +74,11 @@ function ListCustomer() {
               variant='contained'
               sx={{ marginLeft: 10 }}
               onClick={() => handleOpenModalCreateCustomer()}
+              style={{
+                minWidth: 100,
+                minHeight: 40,
+                marginTop: 5
+              }}
             >
               Thêm mới
             </Button>
@@ -89,6 +96,7 @@ function ListCustomer() {
           title='Add Customer'
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
+          style={{minWidth: 340}}
         />
       )}
     </div>
