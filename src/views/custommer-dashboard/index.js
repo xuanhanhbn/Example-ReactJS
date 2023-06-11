@@ -38,12 +38,7 @@ function ListCustomer() {
       </Breadcrumb>
       {/* Button Add */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, marginTop: 50 }}>
-        <form
-          noValidate
-          autoComplete='off'
-          style={{ display: 'flex', alignItems: 'center' }}
-          onSubmit={e => e.preventDefault()}
-        >
+        <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
             {inputSearchCustomer.map(inputSearch => (
               <Controller
@@ -59,14 +54,16 @@ function ListCustomer() {
                       onChange={onChange}
                       required
                       fullWidth
-                      style={{ marginBottom: 10 }}
                     />
                   )
                 }}
                 name={inputSearch.field}
               />
             ))}
-            <Button onClick={handleSubmit(onSubmit)}>
+            <Button
+              style={{ backgroundColor: '#9155FD', color: 'white', maxHeight: 40, marginTop: 5 }}
+              onClick={handleSubmit(onSubmit)}
+            >
               <Magnify style={{ fontSize: 24 }} />
             </Button>
             <Button
@@ -96,7 +93,7 @@ function ListCustomer() {
           title='Add Customer'
           aria-labelledby='modal-modal-title'
           aria-describedby='modal-modal-description'
-          style={{minWidth: 340}}
+          style={{ minWidth: 340 }}
         />
       )}
     </div>
