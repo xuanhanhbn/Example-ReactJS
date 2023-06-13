@@ -16,7 +16,7 @@ const navigation = () => {
     {
       title: 'Dashboard',
       icon: HomeOutline,
-      path: '/',
+      path: '/admin/dashboard',
       isShowMenu: true
     },
     {
@@ -31,13 +31,28 @@ const navigation = () => {
       path: '/customer-dashboard',
       isShowMenu: true
     },
-      {
-    title: 'Login',
-    icon: Login,
-    path: '/pages/login',
-    openInNewTab: true,
-    isShowMenu: true
-  },
+    {
+      title: 'Login',
+      icon: Login,
+      path: '/pages/login',
+      openInNewTab: true,
+      isShowMenu: true
+    },
+    {
+      sectionTitle: 'User Interface',
+      isShowMenu: true
+    },
+    {
+      title: 'Create User',
+      icon: Login,
+      path: '/admin/create-account',
+      isShowMenu: true
+    },
+    {
+      title: 'Forgot Password',
+      icon: Login,
+      path: '/pages/forgot-password'
+    },
 
     {
       sectionTitle: 'User Interface',

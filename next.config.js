@@ -1,5 +1,7 @@
 const path = require('path')
 
+// const withCSS = require('@zeit/next-css')
+
 module.exports = {
   trailingSlash: true,
   reactStrictMode: false,
@@ -16,3 +18,14 @@ module.exports = {
     return config
   }
 }
+
+// next.config.js
+
+// module.exports = withCSS({
+//   cssModules: true,
+//   cssLoaderOptions: {
+//     importLoaders: 1
+//   }
+
+//   /* Các cấu hình khác của Next.js (nếu có) */
+// })
