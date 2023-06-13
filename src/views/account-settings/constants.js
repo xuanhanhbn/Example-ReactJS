@@ -13,5 +13,5 @@ export const inputTabSecurity = [
         field: 'confirmNewPassword',
         lable: 'Confirm New Password',
         type: 'password'
-    }
+    },
 ]

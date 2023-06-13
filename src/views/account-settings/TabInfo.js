@@ -16,6 +16,10 @@ import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
+import { Controller, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+
 // ** Third Party Imports
 import DatePicker from 'react-datepicker'
 
@@ -27,25 +31,48 @@ const CustomInput = forwardRef((props, ref) => {
 })
 
 const TabInfo = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+  const onSubmit = data => console.log(data)
+
   // ** State
-  const [date, setDate] = useState(null)
 
   return (
     <CardContent>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={7}>
           <Grid item xs={12} sx={{ marginTop: 4.8 }}>
-            <TextField
+            {/* <TextField
               fullWidth
               multiline
               label='Bio'
               minRows={2}
               placeholder='Bio'
               defaultValue='The name’s John Deo. I am a tireless seeker of knowledge, occasional purveyor of wisdom and also, coincidentally, a graphic designer. Algolia helps businesses across industries quickly create relevant 😎, scalable 😀, and lightning 😍 fast search and discovery experiences.'
+            /> */}
+
+            <Controller
+              control={control}
+              render={({ field: { onChange, value, defaultValue } }) => (
+                <TextField
+                  fullWidth
+                  multiline
+                  label='Bio'
+                  onChange={onChange}
+                  minRows={2}
+                  placeholder='Bio'
+                  defaultValue=''
+                  value={value}
+                />
+              )}
+              name='bio'
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <DatePickerWrapper>
+            {/* <DatePickerWrapper>
               <DatePicker
                 selected={date}
                 showYearDropdown
@@ -55,7 +82,23 @@ const TabInfo = () => {
                 customInput={<CustomInput />}
                 onChange={date => setDate(date)}
               />
-            </DatePickerWrapper>
+            </DatePickerWrapper> */}
+            <Controller
+              control={control}
+              render={({ field }) => (
+                <DatePickerWrapper>
+                  <DatePicker
+                    maxDate={new Date()}
+                    id='account-settings-date'
+                    placeholderText='MM-DD-YYYY'
+                    customInput={<CustomInput />}
+                    onChange={date => field.onChange(date)}
+                    selected={field.value}
+                  />
+                </DatePickerWrapper>
+              )}
+              name='birthday'
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField fullWidth type='number' label='Phone' placeholder='(123) 456-7890' />
@@ -110,7 +153,7 @@ const TabInfo = () => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Button variant='contained' sx={{ marginRight: 3.5 }}>
+            <Button type='submit' variant='contained' sx={{ marginRight: 3.5 }}>
               Save Changes
             </Button>
             <Button type='reset' variant='outlined' color='secondary' onClick={() => setDate(null)}>
