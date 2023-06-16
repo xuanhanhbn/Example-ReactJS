@@ -31,13 +31,13 @@ const navigation = () => {
       path: '/customer-dashboard',
       isShowMenu: true
     },
-      {
-    title: 'Login',
-    icon: Login,
-    path: '/pages/login',
-    openInNewTab: true,
-    isShowMenu: true
-  },
+    {
+      title: 'Login',
+      icon: Login,
+      path: '/pages/login',
+      openInNewTab: true,
+      isShowMenu: true
+    },
 
     {
       sectionTitle: 'User Interface',
@@ -74,9 +74,15 @@ const navigation = () => {
     },
     {
       icon: Table,
-      title: 'TransHistory',
-      path: '/trans',
+      title: 'ManagerMember',
+      path: '/managermember',
       isShowMenu: true,
+    },
+    {
+      icon: CubeOutline,
+      title: 'FeedBack',
+      path: '/feedback',
+      isShowMenu: true
     }
   ]
 }

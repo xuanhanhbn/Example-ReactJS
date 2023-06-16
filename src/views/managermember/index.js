@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -18,17 +18,23 @@ import TableContainer from '@mui/material/TableContainer'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 
-const createData = (name, quantity, transcode, status, price) => {
+const createData = (name, quantity, kpi, review) => {
+
   return {
     name,
     quantity,
-    transcode,
-    status,
-    price,
+    kpi,
+    review,
     history: [
       {
+        name: 'Tú',
         date: '2020-01-05',
         amount: 3
+      },
+      {
+        name: 'Dương',
+        date: '2021-12-31',
+        amount: 4
       },
     ]
   }
@@ -53,8 +59,8 @@ const Row = props => {
           {row.name}
         </TableCell>
         <TableCell align='right'>{row.quantity}</TableCell>
-        <TableCell align='right'>{row.transcode}</TableCell>
-        <TableCell align='right'>{row.status}</TableCell>
+        <TableCell align='right'>{row.kpi}</TableCell>
+        <TableCell align='right'>{row.review}</TableCell>
 
       </TableRow>
       <TableRow>
@@ -67,19 +73,22 @@ const Row = props => {
               <Table size='small' aria-label='purchases'>
                 <TableHead>
                   <TableRow>
+                    <TableCell>Nhân Viên</TableCell>
                     <TableCell>Ngày Giao Dịch</TableCell>
-                    <TableCell align='right'>Số Lượng</TableCell>
-                    <TableCell align='right'>Giá sản phẩm ($)</TableCell>
+                    <TableCell align='right'>Số Lượng Chi Tiêu</TableCell>
+                    <TableCell align='right'>Hoa Hồng Đạt Được($)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {row.history.map(historyRow => (
                     <TableRow key={historyRow.date}>
+                      <TableCell align='left'>{historyRow.name}</TableCell>
+
                       <TableCell component='th' scope='row'>
                         {historyRow.date}
                       </TableCell>
                       <TableCell align='right'>{historyRow.amount}</TableCell>
-                      <TableCell align='right'>{Math.round(historyRow.amount * row.price * 100) / 100}</TableCell>
+                      <TableCell align='right'>{Math.round(historyRow.amount * row.kpi * 100) / 100}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -93,9 +102,9 @@ const Row = props => {
 }
 
 const rows = [
-  createData('Hoàng Tú', 159, 6.0, 24, 5.22),
-  createData('Minh Dương', 237, 9.0, 37, 4.99),
-  createData(' Nguyễn Thái ', 262, 16.0, 24, 3.79),
+  createData('Phòng Nhân Sự', 159, 6.0, 'xuất sắc'),
+  createData('Phòng Kế Toán', 237, 9.0, 'trung bình'),
+  createData('Phòng Kinh Tế', 262, 16.0, 'yếu'),
 ]
 
 const TableCollapsible = () => {
@@ -105,10 +114,10 @@ const TableCollapsible = () => {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Người Giao Dịch</TableCell>
-            <TableCell align='right'>Số lượng giao dịch</TableCell>
-            <TableCell align='right'>Mã giao dịch</TableCell>
-            <TableCell align='right'>Trạng Thái</TableCell>
+            <TableCell>Phòng Ban</TableCell>
+            <TableCell align='right'>Chi Tiêu </TableCell>
+            <TableCell align='right'>KPI</TableCell>
+            <TableCell align='right'>Đánh Giá</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -120,5 +129,6 @@ const TableCollapsible = () => {
     </TableContainer>
   )
 }
+
 
 export default TableCollapsible
