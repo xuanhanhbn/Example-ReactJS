@@ -16,6 +16,8 @@ import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
+import moment from 'moment/moment'
+
 import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
@@ -25,9 +27,18 @@ import DatePicker from 'react-datepicker'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+import Typography from '@mui/material/Typography'
+
+const validationSchema = Yup.object().shape({
+  birthdate: Yup.string().required('Birth date is required'),
+  phone: Yup.string().required('Phone is required'),
+  country: Yup.string().required('Country is required'),
+  languages: Yup.string().required('Languages is required'),
+  gender: Yup.string().required('Gender is required')
+})
 
 const CustomInput = forwardRef((props, ref) => {
-  return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
+  return <TextField inputRef={ref}  label='Birth Date' fullWidth {...props} />
 })
 
 const TabInfo = () => {
@@ -35,10 +46,14 @@ const TabInfo = () => {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm()
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  })
+  
   const onSubmit = data => console.log(data)
 
   // ** State
+  const [date, setDate] = useState(null)
 
   return (
     <CardContent>
@@ -56,7 +71,7 @@ const TabInfo = () => {
 
             <Controller
               control={control}
-              render={({ field: { onChange, value, defaultValue } }) => (
+              render={({ field: { onChange, value } }) => (
                 <TextField
                   fullWidth
                   multiline
@@ -97,22 +112,45 @@ const TabInfo = () => {
                   />
                 </DatePickerWrapper>
               )}
-              name='birthday'
+              name='birthdate'
             />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.birthdate?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth type='number' label='Phone' placeholder='(123) 456-7890' />
+            {/* <TextField fullWidth type='number' label='Phone' placeholder='(123) 456-7890' /> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField fullWidth multiline label='Phone' onChange={onChange} placeholder='Phone' value={value} />
+              )}
+              name='phone'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.phone?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
+            {/* <TextField
               fullWidth
               label='Website'
               placeholder='https://example.com/'
               defaultValue='https://themeselection.com/'
+            /> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  fullWidth
+                  multiline
+                  label='Website'
+                  onChange={onChange}
+                  placeholder='https://example.com/'
+                  value={value}
+                />
+              )}
+              name='website'
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
               <InputLabel>Country</InputLabel>
               <Select label='Country' defaultValue='USA'>
                 <MenuItem value='USA'>USA</MenuItem>
@@ -120,10 +158,28 @@ const TabInfo = () => {
                 <MenuItem value='Australia'>Australia</MenuItem>
                 <MenuItem value='Germany'>Germany</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <FormControl fullWidth>
+                    <InputLabel>Country</InputLabel>
+                    <Select label='Country' onChange={onChange} value={value}>
+                      <MenuItem value='USA'>USA</MenuItem>
+                      <MenuItem value='UK'>UK</MenuItem>
+                      <MenuItem value='Australia'>Australia</MenuItem>
+                      <MenuItem value='Germany'>Germany</MenuItem>
+                    </Select>
+                  </FormControl>
+                </>
+              )}
+              name='country'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.country?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
               <InputLabel id='form-layouts-separator-multiple-select-label'>Languages</InputLabel>
               <Select
                 multiple
@@ -140,17 +196,67 @@ const TabInfo = () => {
                 <MenuItem value='German'>German</MenuItem>
                 <MenuItem value='Arabic'>Arabic</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <FormControl fullWidth>
+                    <InputLabel id='form-layouts-separator-multiple-select-label'>Languages</InputLabel>
+                    <Select
+                      onChange={onChange}
+                      value={value}
+                      id='account-settings-multiple-select'
+                      labelId='account-settings-multiple-select-label'
+                      input={<OutlinedInput label='Languages' id='select-multiple-language' />}
+                    >
+                      <MenuItem value='English'>English</MenuItem>
+                      <MenuItem value='French'>French</MenuItem>
+                      <MenuItem value='Spanish'>Spanish</MenuItem>
+                      <MenuItem value='Portuguese'>Portuguese</MenuItem>
+                      <MenuItem value='Italian'>Italian</MenuItem>
+                      <MenuItem value='German'>German</MenuItem>
+                      <MenuItem value='Arabic'>Arabic</MenuItem>
+                    </Select>
+                  </FormControl>
+                </>
+              )}
+              name='languages'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.languages?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl>
+            {/* <FormControl>
               <FormLabel sx={{ fontSize: '0.875rem' }}>Gender</FormLabel>
               <RadioGroup row defaultValue='male' aria-label='gender' name='account-settings-info-radio'>
                 <FormControlLabel value='male' label='Male' control={<Radio />} />
                 <FormControlLabel value='female' label='Female' control={<Radio />} />
                 <FormControlLabel value='other' label='Other' control={<Radio />} />
               </RadioGroup>
-            </FormControl>
+            </FormControl> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <FormControl>
+                    <FormLabel sx={{ fontSize: '0.875rem' }}>Gender</FormLabel>
+                    <RadioGroup
+                      onChange={onChange}
+                      value={value}
+                      row
+                      aria-label='gender'
+                      name='account-settings-info-radio'
+                    >
+                      <FormControlLabel value='male' label='Male' control={<Radio />} />
+                      <FormControlLabel value='female' label='Female' control={<Radio />} />
+                      <FormControlLabel value='other' label='Other' control={<Radio />} />
+                    </RadioGroup>
+                  </FormControl>
+                </>
+              )}
+              name='gender'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.gender?.message}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Button type='submit' variant='contained' sx={{ marginRight: 3.5 }}>
