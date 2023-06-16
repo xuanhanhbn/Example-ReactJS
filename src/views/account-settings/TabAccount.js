@@ -81,6 +81,7 @@ const TabAccount = props => {
     }
   }
 
+  const defaultValue = ''
   
 
   return (
@@ -119,7 +120,6 @@ const TabAccount = props => {
                 <TextField fullWidth label='Username' name='username' onChange={onChange} value={value} />
               )}
               name='username'
-              defaultValue=''
             />
             <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.username?.message}</Typography>
           </Grid>
@@ -167,7 +167,7 @@ const TabAccount = props => {
                 render={({ field: { onChange, value } }) => (
                   <>
                     <InputLabel>Role</InputLabel>
-                    <Select name='role' onChange={onChange} value={value} label='Role' defaultValue='admin'>
+                    <Select name='role' onChange={onChange} value={value || defaultValue} label='Role'>
                       <MenuItem value='admin'>Admin</MenuItem>
                       <MenuItem value='author'>Author</MenuItem>
                       <MenuItem value='editor'>Editor</MenuItem>
@@ -176,7 +176,6 @@ const TabAccount = props => {
                     </Select>
                   </>
                 )}
-                defaultValue=''
               />
             </FormControl>
             <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.role?.message}</Typography>
@@ -195,14 +194,13 @@ const TabAccount = props => {
                 render={({ field: { onChange, value } }) => (
                   <>
                     <InputLabel>Status</InputLabel>
-                    <Select name='status' onChange={onChange} value={value} label='Role' defaultValue='admin'>
+                    <Select name='status' onChange={onChange} value={value || defaultValue} label='Role' >
                       <MenuItem value='active'>Active</MenuItem>
                       <MenuItem value='inactive'>Inactive</MenuItem>
                       <MenuItem value='pending'>Pending</MenuItem>
                     </Select>
                   </>
                 )}
-                defaultValue=''
               />
             </FormControl>
             <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.status?.message}</Typography>

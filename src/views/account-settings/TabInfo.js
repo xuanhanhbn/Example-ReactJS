@@ -38,8 +38,10 @@ const validationSchema = Yup.object().shape({
 })
 
 const CustomInput = forwardRef((props, ref) => {
-  return <TextField inputRef={ref}  label='Birth Date' fullWidth {...props} />
+  return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
 })
+
+
 
 const TabInfo = () => {
   const {
@@ -49,11 +51,16 @@ const TabInfo = () => {
   } = useForm({
     resolver: yupResolver(validationSchema)
   })
-  
-  const onSubmit = data => console.log(data)
+
+  const onSubmit = data => {
+    data.birthdate = moment(data.birthdate).format('YYYY-MM-DD')
+    console.log(data)
+  }
 
   // ** State
   const [date, setDate] = useState(null)
+
+  const defaultValue = ''
 
   return (
     <CardContent>
@@ -79,7 +86,6 @@ const TabInfo = () => {
                   onChange={onChange}
                   minRows={2}
                   placeholder='Bio'
-                  defaultValue=''
                   value={value}
                 />
               )}
@@ -105,16 +111,19 @@ const TabInfo = () => {
                   <DatePicker
                     maxDate={new Date()}
                     id='account-settings-date'
-                    placeholderText='MM-DD-YYYY'
+                    placeholderText='YYYY-MM-DD'
                     customInput={<CustomInput />}
                     onChange={date => field.onChange(date)}
                     selected={field.value}
+                    dateFormat='yyyy-MM-dd'
                   />
                 </DatePickerWrapper>
               )}
               name='birthdate'
             />
-            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.birthdate?.message}</Typography>
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>
+              {errors.birthdate?.message}
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
             {/* <TextField fullWidth type='number' label='Phone' placeholder='(123) 456-7890' /> */}
@@ -165,7 +174,7 @@ const TabInfo = () => {
                 <>
                   <FormControl fullWidth>
                     <InputLabel>Country</InputLabel>
-                    <Select label='Country' onChange={onChange} value={value}>
+                    <Select label='Country' onChange={onChange} value={value || defaultValue}>
                       <MenuItem value='USA'>USA</MenuItem>
                       <MenuItem value='UK'>UK</MenuItem>
                       <MenuItem value='Australia'>Australia</MenuItem>
@@ -205,7 +214,7 @@ const TabInfo = () => {
                     <InputLabel id='form-layouts-separator-multiple-select-label'>Languages</InputLabel>
                     <Select
                       onChange={onChange}
-                      value={value}
+                      value={value || defaultValue}
                       id='account-settings-multiple-select'
                       labelId='account-settings-multiple-select-label'
                       input={<OutlinedInput label='Languages' id='select-multiple-language' />}
@@ -223,7 +232,9 @@ const TabInfo = () => {
               )}
               name='languages'
             />
-            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.languages?.message}</Typography>
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>
+              {errors.languages?.message}
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
             {/* <FormControl>
@@ -242,7 +253,7 @@ const TabInfo = () => {
                     <FormLabel sx={{ fontSize: '0.875rem' }}>Gender</FormLabel>
                     <RadioGroup
                       onChange={onChange}
-                      value={value}
+                      value={value || defaultValue}
                       row
                       aria-label='gender'
                       name='account-settings-info-radio'
