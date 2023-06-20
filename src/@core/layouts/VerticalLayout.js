@@ -103,12 +103,14 @@ const VerticalLayout = props => {
           </>
         )}
       </VerticalLayoutWrapper>
-      <Box
-        className='app-content d-flex justify-content-center align-items-center'
-        sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}
-      >
-        <Typography>Vui lòng đăng nhập</Typography>
-      </Box>
+      {!login && (
+        <Box
+          className='app-content d-flex justify-content-center align-items-center'
+          sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}
+        >
+          <Typography>Vui lòng đăng nhập</Typography>
+        </Box>
+      )}
 
       {scrollToTop ? (
         scrollToTop(props)
