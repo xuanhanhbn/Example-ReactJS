@@ -63,6 +63,7 @@
     "date-fns": "^2.30.0",
     "immer": "^10.0.2",
     "jsonwebtoken": "^9.0.0",
+    "katex": "^0.16.7",
     "mdi-material-ui": "^7.1.0",
     "moment": "^2.29.4",
     "next": "^12.3.4",
@@ -79,6 +80,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.2.3",
+    "suneditor": "^2.45.1",
     "web-vitals": "^3.3.1",
     "yup": "^1.1.1"
   },
