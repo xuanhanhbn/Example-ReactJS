@@ -18,6 +18,19 @@ import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import Button from '@mui/material/Button'
 
+import { Controller, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required('User name is required'),
+  name: Yup.string().required('Name is required'),
+  email: Yup.string().required('Email is required'),
+  role: Yup.string().required('Role is required'),
+  status: Yup.string().required('Status is required'),
+  company: Yup.string().required('Company is required')
+})
+
 // ** Icons Imports
 import Close from 'mdi-material-ui/Close'
 
@@ -45,7 +58,16 @@ const ResetButtonStyled = styled(Button)(({ theme }) => ({
   }
 }))
 
-const TabAccount = () => {
+const TabAccount = props => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  })
+  const onSubmit = data => console.log(data)
+
   // ** State
   const [openAlert, setOpenAlert] = useState(true)
   const [imgSrc, setImgSrc] = useState('/images/avatars/1.png')
@@ -59,9 +81,12 @@ const TabAccount = () => {
     }
   }
 
+  const defaultValue = ''
+  
+
   return (
     <CardContent>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={7}>
           <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -88,44 +113,108 @@ const TabAccount = () => {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label='Username' placeholder='johnDoe' defaultValue='johnDoe' />
+            {/* <TextField fullWidth label='Username'  defaultValue="Duong"/> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField fullWidth label='Username' name='username' onChange={onChange} value={value} />
+              )}
+              name='username'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.username?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label='Name' placeholder='John Doe' defaultValue='John Doe' />
+            {/* <TextField fullWidth label='Name' placeholder='John Doe' defaultValue='John Doe' /> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField fullWidth label='Name' name='name' onChange={onChange} value={value} />
+              )}
+              name='name'
+            />
+             <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.name?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
+            {/* <TextField
               fullWidth
               type='email'
               label='Email'
               placeholder='johnDoe@example.com'
               defaultValue='johnDoe@example.com'
+            /> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField fullWidth label='Email' name='email' onChange={onChange} value={value} />
+              )}
+              name='email'
             />
+             <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.email?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
-              <InputLabel>Role</InputLabel>
+              {/* <InputLabel>Role</InputLabel>
               <Select label='Role' defaultValue='admin'>
                 <MenuItem value='admin'>Admin</MenuItem>
                 <MenuItem value='author'>Author</MenuItem>
                 <MenuItem value='editor'>Editor</MenuItem>
                 <MenuItem value='maintainer'>Maintainer</MenuItem>
                 <MenuItem value='subscriber'>Subscriber</MenuItem>
-              </Select>
+              </Select> */}
+              <Controller
+                control={control}
+                name='role'
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <InputLabel>Role</InputLabel>
+                    <Select name='role' onChange={onChange} value={value || defaultValue} label='Role'>
+                      <MenuItem value='admin'>Admin</MenuItem>
+                      <MenuItem value='author'>Author</MenuItem>
+                      <MenuItem value='editor'>Editor</MenuItem>
+                      <MenuItem value='maintainer'>Maintainer</MenuItem>
+                      <MenuItem value='subscriber'>Subscriber</MenuItem>
+                    </Select>
+                  </>
+                )}
+              />
             </FormControl>
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.role?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
-              <InputLabel>Status</InputLabel>
+              {/* <InputLabel>Status</InputLabel>
               <Select label='Status' defaultValue='active'>
                 <MenuItem value='active'>Active</MenuItem>
                 <MenuItem value='inactive'>Inactive</MenuItem>
                 <MenuItem value='pending'>Pending</MenuItem>
-              </Select>
+              </Select> */}
+              <Controller
+                control={control}
+                name='status'
+                render={({ field: { onChange, value } }) => (
+                  <>
+                    <InputLabel>Status</InputLabel>
+                    <Select name='status' onChange={onChange} value={value || defaultValue} label='Role' >
+                      <MenuItem value='active'>Active</MenuItem>
+                      <MenuItem value='inactive'>Inactive</MenuItem>
+                      <MenuItem value='pending'>Pending</MenuItem>
+                    </Select>
+                  </>
+                )}
+              />
             </FormControl>
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.status?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label='Company' placeholder='ABC Pvt. Ltd.' defaultValue='ABC Pvt. Ltd.' />
+            {/* <TextField fullWidth label='Company' placeholder='ABC Pvt. Ltd.' defaultValue='ABC Pvt. Ltd.' /> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField fullWidth label='Company' name='company' onChange={onChange} value={value} />
+              )}
+              name='company'
+            />
+             <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.company?.message}</Typography>
           </Grid>
 
           {openAlert ? (
@@ -148,7 +237,7 @@ const TabAccount = () => {
           ) : null}
 
           <Grid item xs={12}>
-            <Button variant='contained' sx={{ marginRight: 3.5 }}>
+            <Button variant='contained' type='submit' sx={{ marginRight: 3.5 }}>
               Save Changes
             </Button>
             <Button type='reset' variant='outlined' color='secondary'>

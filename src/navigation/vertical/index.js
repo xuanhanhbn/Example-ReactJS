@@ -85,7 +85,8 @@ const navigation = () => {
     {
       icon: CubeOutline,
       title: 'Form Layouts',
-      path: '/form-layouts'
+      path: '/form-layouts',
+      isShowMenu: true
     }
   ]
 }
