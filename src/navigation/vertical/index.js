@@ -105,8 +105,9 @@ const navigation = () => {
       title: 'File',
       path: '/filemanager',
       isShowMenu: true,
-      path: '/form-layouts',
-      isShowMenu: true
+
+      // path: '/form-layouts',
+      // isShowMenu: true
     }
   ]
 }

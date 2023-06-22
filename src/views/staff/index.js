@@ -44,9 +44,7 @@ const createData = (name, quantity, kpi, review) => {
   }
 }
 
-const styleHover = {
-  color
-}
+
 
 const Row = props => {
   // ** Props
@@ -100,7 +98,7 @@ const Row = props => {
                       <TableCell align='right'>{historyRow.date2}</TableCell>
                       <TableCell align='right'>{Math.round(historyRow.amount * row.kpi * 100) / 100}</TableCell>
                       <TableCell align='right'>
-                        <Button style={styleHover}>
+                        <Button >
 
                           <EyeFilled />
                         </Button>
