@@ -26,7 +26,7 @@ const CardMembership = () => {
                 <Grid item xs={10} sm={5}>
                     <CardContent sx={{ padding: theme => `${theme.spacing(3.25, 5.75, 6.25)} !important` }}>
                         <Typography variant='h6' sx={{ marginBottom: 3.5 }}>
-                            Dữ Liệu Đánh Giá
+                            Dữ Liệu Đánh Giá & Phản Hồi Khách Hàng
                         </Typography>
                         <Divider sx={{ marginTop: 4, marginBottom: 4 }} />
                         <Grid container spacing={4}>
@@ -59,18 +59,21 @@ const CardMembership = () => {
                     xs={12}>
                     <CardContent
                     >
-
-                        <Carousel autoplay ref={ref}>
+                        <Carousel
+                            autoPlay
+                            infiniteLoop
+                            showThumbs={false}
+                            ref={ref}>
                             <div>
                                 <h3 style={{
-                                    // backgroundImage: `url(${require(./ img1.png)})`,
                                     height: '160px',
                                     color: '#fff',
                                     lineHeight: '160px',
                                     textAlign: 'center',
                                     background: '#7749',
-
-                                }}>1</h3>
+                                    // backgroundImage: `url(${require(img1.png)})`
+                                }}>
+                                </h3>
                             </div>
                             <div>
                                 <h3 style={{
@@ -79,17 +82,21 @@ const CardMembership = () => {
                                     lineHeight: '160px',
                                     textAlign: 'center',
                                     background: '#7749',
-                                }}></h3>
+                                }}>
+                                    <img src='/img2.png' />
+                                </h3>
                             </div>
                             <div>
                                 <h3 style={{
+                                    height: '160px',
+                                    color: '#fff',
+                                    lineHeight: '160px',
+                                    textAlign: 'center',
+                                    background: '#7749',
+                                }}>
+                                    <img src='/img3.png' />
 
-                                    height: '160px',
-                                    color: '#fff',
-                                    lineHeight: '160px',
-                                    textAlign: 'center',
-                                    background: '#7749',
-                                }}>3</h3>
+                                </h3>
                             </div>
                             <div>
                                 <h3 style={{
@@ -98,7 +105,10 @@ const CardMembership = () => {
                                     lineHeight: '160px',
                                     textAlign: 'center',
                                     background: '#7749',
-                                }}>4</h3>
+                                }}>
+                                    <img src='/img4.png' />
+
+                                </h3>
                             </div>
                         </Carousel>
                         <div>
@@ -118,7 +128,6 @@ const CardMembership = () => {
         </Card >
     )
 }
-
 
 // Styled Box component
 const StyledBox = styled(Box)(({ theme }) => ({

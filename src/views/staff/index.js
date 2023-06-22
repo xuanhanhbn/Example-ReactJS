@@ -10,13 +10,15 @@ import TableRow from '@mui/material/TableRow'
 import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
-import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import TableContainer from '@mui/material/TableContainer'
+
+import { EyeFilled } from '@ant-design/icons';
 
 // ** Icons Imports
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
+import { Button } from '@mui/material'
 
 const createData = (name, quantity, kpi, review) => {
 
@@ -28,21 +30,29 @@ const createData = (name, quantity, kpi, review) => {
     history: [
       {
         name: 'Tú',
-        date: '2020-01-05',
+        date: '27',
+        date2: 7,
         amount: 3
       },
       {
         name: 'Dương',
-        date: '2021-12-31',
+        date: '28',
+        date2: 5,
         amount: 4
       },
     ]
   }
 }
 
+const styleHover = {
+  color
+}
+
 const Row = props => {
   // ** Props
   const { row } = props
+
+
 
   // ** State
   const [open, setOpen] = useState(false)
@@ -67,16 +77,15 @@ const Row = props => {
         <TableCell colSpan={6} sx={{ py: '0 !important' }}>
           <Collapse in={open} timeout='auto' unmountOnExit>
             <Box sx={{ m: 2 }}>
-              <Typography variant='h6' gutterBottom component='div'>
-                Lịch Sử
-              </Typography>
               <Table size='small' aria-label='purchases'>
                 <TableHead>
                   <TableRow>
                     <TableCell>Nhân Viên</TableCell>
-                    <TableCell>Ngày Giao Dịch</TableCell>
-                    <TableCell align='right'>Số Lượng Chi Tiêu</TableCell>
-                    <TableCell align='right'>Hoa Hồng Đạt Được($)</TableCell>
+                    <TableCell>Ngày Công</TableCell>
+                    <TableCell align='right' >Ngày Nghỉ(có phép)</TableCell>
+                    <TableCell align='right' >Ngày nghỉ(không phép)</TableCell>
+                    <TableCell align='right' >Tổng Thu Nhập</TableCell>
+                    <TableCell align='right' >Action</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -88,7 +97,14 @@ const Row = props => {
                         {historyRow.date}
                       </TableCell>
                       <TableCell align='right'>{historyRow.amount}</TableCell>
+                      <TableCell align='right'>{historyRow.date2}</TableCell>
                       <TableCell align='right'>{Math.round(historyRow.amount * row.kpi * 100) / 100}</TableCell>
+                      <TableCell align='right'>
+                        <Button style={styleHover}>
+
+                          <EyeFilled />
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -102,9 +118,9 @@ const Row = props => {
 }
 
 const rows = [
-  createData('Phòng Nhân Sự', 159, 6.0, 'xuất sắc'),
-  createData('Phòng Kế Toán', 237, 9.0, 'trung bình'),
-  createData('Phòng Kinh Tế', 262, 16.0, 'yếu'),
+  createData('Phòng Nhân Sự', 159, 6.0, 'Xuất Sắc'),
+  createData('Phòng Kế Toán', 237, 9.0, 'Trung Bình'),
+  createData('Phòng Kinh Tế', 262, 16.0, 'Yếu'),
 ]
 
 const TableCollapsible = () => {

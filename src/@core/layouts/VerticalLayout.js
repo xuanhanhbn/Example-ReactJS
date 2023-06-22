@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // ** MUI Imports
 import Fab from '@mui/material/Fab'
@@ -20,6 +20,7 @@ import ScrollToTop from 'src/@core/components/scroll-to-top'
 
 // ** Styled Component
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+import { Typography } from '@mui/material'
 
 const VerticalLayoutWrapper = styled('div')({
   height: '100%',
@@ -48,6 +49,7 @@ const ContentWrapper = styled('main')(({ theme }) => ({
 const VerticalLayout = props => {
   // ** Props
   const { settings, children, scrollToTop, verticalNavItems } = props
+  const [login, setLogin] = useState()
 
   // ** Vars
   const { contentWidth } = settings
@@ -59,39 +61,54 @@ const VerticalLayout = props => {
   // ** Toggle Functions
   const toggleNavVisibility = () => setNavVisible(!navVisible)
 
+  useEffect(() => {
+    const dataLoginPage = JSON.parse(localStorage.getItem('loginPage'))
+    setLogin(dataLoginPage)
+  }, [])
+
   return (
     <>
       <VerticalLayoutWrapper className='layout-wrapper'>
-        <Navigation
-          navWidth={navWidth}
-          navVisible={navVisible}
-          setNavVisible={setNavVisible}
-          toggleNavVisibility={toggleNavVisibility}
-          {...props}
-        />
-        <MainContentWrapper className='layout-content-wrapper'>
-          <AppBar toggleNavVisibility={toggleNavVisibility} {...props} />
+        {login && (
+          <>
+            <Navigation
+              navWidth={navWidth}
+              navVisible={navVisible}
+              setNavVisible={setNavVisible}
+              toggleNavVisibility={toggleNavVisibility}
+              {...props}
+            />
+            <MainContentWrapper className='layout-content-wrapper'>
+              <AppBar toggleNavVisibility={toggleNavVisibility} {...props} />
 
-          <ContentWrapper
-            className='layout-page-content'
-            sx={{
-              ...(contentWidth === 'boxed' && {
-                mx: 'auto',
-                '@media (min-width:1440px)': { maxWidth: 1440 },
-                '@media (min-width:1200px)': { maxWidth: '100%' }
-              })
-            }}
-          >
-            {children}
-          </ContentWrapper>
+              <ContentWrapper
+                className='layout-page-content'
+                sx={{
+                  ...(contentWidth === 'boxed' && {
+                    mx: 'auto',
+                    '@media (min-width:1440px)': { maxWidth: 1440 },
+                    '@media (min-width:1200px)': { maxWidth: '100%' }
+                  })
+                }}
+              >
+                {children}
+              </ContentWrapper>
 
-          <Footer {...props} />
+              <Footer {...props} />
 
-          <DatePickerWrapper sx={{ zIndex: 11 }}>
-            <Box id='react-datepicker-portal'></Box>
-          </DatePickerWrapper>
-        </MainContentWrapper>
+              <DatePickerWrapper sx={{ zIndex: 11 }}>
+                <Box id='react-datepicker-portal'></Box>
+              </DatePickerWrapper>
+            </MainContentWrapper>
+          </>
+        )}
       </VerticalLayoutWrapper>
+      <Box
+        className='app-content d-flex justify-content-center align-items-center'
+        sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}
+      >
+        <Typography>Vui lòng đăng nhập</Typography>
+      </Box>
 
       {scrollToTop ? (
         scrollToTop(props)

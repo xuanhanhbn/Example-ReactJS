@@ -11,12 +11,13 @@ import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import { NotificationClearAll } from 'mdi-material-ui'
 
+
 const navigation = () => {
   return [
     {
       title: 'Dashboard',
       icon: HomeOutline,
-      path: '/',
+      path: '/admin/dashboard',
       isShowMenu: true
     },
     {
@@ -37,6 +38,21 @@ const navigation = () => {
       path: '/pages/login',
       openInNewTab: true,
       isShowMenu: true
+    },
+    {
+      sectionTitle: 'User Interface',
+      isShowMenu: true
+    },
+    {
+      title: 'Create User',
+      icon: Login,
+      path: '/admin/create-account',
+      isShowMenu: true
+    },
+    {
+      title: 'Forgot Password',
+      icon: Login,
+      path: '/pages/forgot-password'
     },
 
     {
@@ -74,15 +90,21 @@ const navigation = () => {
     },
     {
       icon: Table,
-      title: 'ManagerMember',
-      path: '/managermember',
+      title: 'Staff',
+      path: '/staff',
       isShowMenu: true,
     },
     {
       icon: CubeOutline,
       title: 'FeedBack',
       path: '/feedback',
-      isShowMenu: true
+      isShowMenu: true,
+    },
+    {
+      icon: CreditCardOutline,
+      title: 'File',
+      path: '/filemanager',
+      isShowMenu: true,
     }
   ]
 }
