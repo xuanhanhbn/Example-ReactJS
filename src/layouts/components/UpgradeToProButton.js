@@ -74,11 +74,10 @@ const BuyNowButton = () => {
             </a>
             <CardContent>
               <Typography sx={{ mb: 4 }} variant='h6'>
-                Materio - React Admin Template
+                Company Active
               </Typography>
               <Typography sx={{ mb: 4 }} variant='body2'>
-                Materio Admin is the most developer friendly & highly customizable Admin Dashboard Template based on MUI
-                and NextJS.
+                Company Active
               </Typography>
               <Typography sx={{ mb: 4 }} variant='body2'>
                 Click on below buttons to explore PRO version.

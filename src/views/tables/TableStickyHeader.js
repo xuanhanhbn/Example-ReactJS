@@ -110,9 +110,9 @@ const TableStickyHeader = props => {
                         {column.id === 'actions' && (
                           <>
                             <Link href='/account-settings/'>
-                              <HomeOutline style={{fontSize: 18, marginRight:5}}  />
+                              <HomeOutline style={{ fontSize: 18, marginRight: 5 }} />
                             </Link>
-                            <Delete style={{fontSize: 18}}  color='red' />
+                            <Delete style={{ fontSize: 18, color: 'red' }} color='red' />
                           </>
                         )}
                       </TableCell>

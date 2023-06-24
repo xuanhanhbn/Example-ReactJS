@@ -6,7 +6,8 @@ const initialState = {
   isSuccess: false,
   isError: false,
   dataLogin: [],
-  dataError: {}
+  dataError: {},
+  dataUser: {}
 }
 
 const login = createSlice({
@@ -25,6 +26,20 @@ const login = createSlice({
     loginPageSuccess(state, action) {
       state.isLoading = false
       state.dataLogin = action.payload || []
+      state.isSuccess = true
+    },
+    userInfo(state) {
+      state.isLoading = true
+    },
+    userInfoFailed(state, action) {
+      state.isLoading = false
+      state.isError = true
+      state.dataError = action.payload || {}
+      state.errorMessage = ''
+    },
+    userInfoSuccess(state, action) {
+      state.isLoading = false
+      state.dataUser = action.payload || {}
       state.isSuccess = true
     },
     clear(state) {
