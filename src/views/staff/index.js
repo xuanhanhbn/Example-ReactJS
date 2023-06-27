@@ -78,12 +78,13 @@ const Row = props => {
               <Table size='small' aria-label='purchases'>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Nhân Viên</TableCell>
-                    <TableCell>Ngày Công</TableCell>
-                    <TableCell align='right' >Ngày Nghỉ(có phép)</TableCell>
-                    <TableCell align='right' >Ngày nghỉ(không phép)</TableCell>
-                    <TableCell align='right' >Tổng Thu Nhập</TableCell>
-                    <TableCell align='right' >Action</TableCell>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Gender</TableCell>
+                    <TableCell align='right' >Nation id</TableCell>
+                    <TableCell align='right' >Address</TableCell>
+                    <TableCell align='right' >Position
+                    </TableCell>
+                    <TableCell align='right' >Detail</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -98,8 +99,7 @@ const Row = props => {
                       <TableCell align='right'>{historyRow.date2}</TableCell>
                       <TableCell align='right'>{Math.round(historyRow.amount * row.kpi * 100) / 100}</TableCell>
                       <TableCell align='right'>
-                        <Button >
-
+                        <Button href='/account-settings' >
                           <EyeFilled />
                         </Button>
                       </TableCell>
@@ -128,10 +128,10 @@ const TableCollapsible = () => {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Phòng Ban</TableCell>
-            <TableCell align='right'>Chi Tiêu </TableCell>
+            <TableCell>Department</TableCell>
+            <TableCell align='right'>Quantity of people</TableCell>
             <TableCell align='right'>KPI</TableCell>
-            <TableCell align='right'>Đánh Giá</TableCell>
+            <TableCell align='right'>Evaluate</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -26,8 +26,7 @@ const CardMembership = () => {
                 <Grid item xs={10} sm={5}>
                     <CardContent sx={{ padding: theme => `${theme.spacing(3.25, 5.75, 6.25)} !important` }}>
                         <Typography variant='h6' sx={{ marginBottom: 3.5 }}>
-                            Dữ Liệu Đánh Giá & Phản Hồi Khách Hàng
-                        </Typography>
+                            FeedBack                        </Typography>
                         <Divider sx={{ marginTop: 4, marginBottom: 4 }} />
                         <Grid container spacing={4}>
                             <Grid item xs={12} sm={5}>
@@ -71,6 +70,7 @@ const CardMembership = () => {
                                     lineHeight: '160px',
                                     textAlign: 'center',
                                     background: '#7749',
+
                                     // backgroundImage: `url(${require(img1.png)})`
                                 }}>
                                 </h3>
@@ -83,7 +83,6 @@ const CardMembership = () => {
                                     textAlign: 'center',
                                     background: '#7749',
                                 }}>
-                                    <img src='/img2.png' />
                                 </h3>
                             </div>
                             <div>
@@ -94,7 +93,6 @@ const CardMembership = () => {
                                     textAlign: 'center',
                                     background: '#7749',
                                 }}>
-                                    <img src='/img3.png' />
 
                                 </h3>
                             </div>
@@ -106,7 +104,6 @@ const CardMembership = () => {
                                     textAlign: 'center',
                                     background: '#7749',
                                 }}>
-                                    <img src='/img4.png' />
 
                                 </h3>
                             </div>

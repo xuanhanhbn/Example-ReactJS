@@ -7,6 +7,12 @@ import TableBody from '@mui/material/TableBody'
 import TableContainer from '@mui/material/TableContainer'
 import TableRow from '@mui/material/TableRow'
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
+import { DownloadOutlined } from '@ant-design/icons';
+import { EyeOutlined } from '@ant-design/icons';
+import { Button } from '@mui/material'
+
+
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -44,19 +50,16 @@ const rows = [
 const TableCustomized = () => {
     return (
 
-
-
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} aria-label='customized table'>
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Name File</StyledTableCell>
                         <StyledTableCell align='right'>By</StyledTableCell>
-                        <StyledTableCell align='right'>InsertDate</StyledTableCell>
-                        <StyledTableCell align='right'>Time</StyledTableCell>
-                        <StyledTableCell align='right'>Download</StyledTableCell>
-                        <StyledTableCell align='right'>Active</StyledTableCell>
-
+                        <StyledTableCell align='right'>Date Issued</StyledTableCell>
+                        <StyledTableCell align='right'>Date Action</StyledTableCell>
+                        <StyledTableCell align='right'>Date Finished</StyledTableCell>
+                        <StyledTableCell align='center'>Action</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -69,6 +72,15 @@ const TableCustomized = () => {
                             <StyledTableCell align='right'>{row.fat}</StyledTableCell>
                             <StyledTableCell align='right'>{row.carbs}</StyledTableCell>
                             <StyledTableCell align='right'>{row.protein}</StyledTableCell>
+                            <StyledTableCell align='right'>
+                                <Button>
+                                    <DownloadOutlined />
+                                </Button>
+                                
+                                <Button>
+                                    <EyeOutlined />
+                                </Button>
+                            </StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
