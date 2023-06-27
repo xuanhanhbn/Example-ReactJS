@@ -52,7 +52,7 @@ const navigation = () => {
     {
       title: 'Documents',
       icon: FileDocument,
-      path: '/admin/documents',
+      path: '/admin/list-documents',
       isShowMenu: true
     },
 
