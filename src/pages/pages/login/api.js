@@ -1,9 +1,10 @@
 import api from 'src/utils/baseApi'
+import baseApiUrlUser from 'src/utils/baseApiAuth'
 
-export const getApiProduct = (url, data) =>
+export const getApiUser = url =>
   new Promise((resolve, reject) =>
-    api
-      .get(url, data)
+    baseApiUrlUser
+      .get(url)
       .then(res => resolve(res))
       .catch(err => reject(err))
   )
