@@ -50,6 +50,7 @@ export const columns = [
     align: 'right',
     format: value => value.toLocaleString('en-US')
   },
+  
   // {
   //   id: 'density',
   //   label: 'Density',

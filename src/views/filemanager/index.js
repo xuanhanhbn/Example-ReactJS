@@ -10,6 +10,7 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import { DownloadOutlined } from '@ant-design/icons';
 import { EyeOutlined } from '@ant-design/icons';
 import { Button } from '@mui/material'
+import { rows } from './constant'
 
 
 
@@ -35,17 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     }
 }))
 
-const createData = (name, calories, fat, carbs, protein) => {
-    return { name, calories, fat, carbs, protein }
-}
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9)
-]
 
 const TableCustomized = () => {
     return (
@@ -76,7 +67,7 @@ const TableCustomized = () => {
                                 <Button>
                                     <DownloadOutlined />
                                 </Button>
-                                
+
                                 <Button>
                                     <EyeOutlined />
                                 </Button>

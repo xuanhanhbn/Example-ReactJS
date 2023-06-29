@@ -14,6 +14,8 @@ import TrendingUp from 'mdi-material-ui/TrendingUp'
 import StarOutline from 'mdi-material-ui/StarOutline'
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
+import styles from './style.module.css'
+
 
 
 
@@ -108,7 +110,7 @@ const CardMembership = () => {
                                 </h3>
                             </div>
                         </Carousel>
-                        <div>
+                        <div >
                             <Button onClick={() => {
                                 ref.current.prev();
                             }}>Back</Button>
