@@ -22,8 +22,9 @@ const navigation = () => {
     {
       title: 'Account Settings',
       icon: AccountCogOutline,
-      path: '/account-settings',
-      isShowMenu: true
+      path: '/account-settings'
+
+      // isShowMenu: true
     },
     {
       title: 'Customer',
@@ -35,8 +36,7 @@ const navigation = () => {
       title: 'Login',
       icon: Login,
       path: '/pages/login',
-      openInNewTab: true,
-      isShowMenu: true
+      openInNewTab: true
     },
     {
       sectionTitle: 'User Interface',
