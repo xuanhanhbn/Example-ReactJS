@@ -25,7 +25,10 @@ import * as Yup from 'yup'
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('User name is required'),
   name: Yup.string().required('Name is required'),
-  email: Yup.string().required('Email is required'),
+  email: Yup.string()
+    .required('Email is required')
+    .matches(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/, 'Email sai định dạng'),
+
   role: Yup.string().required('Role is required'),
   status: Yup.string().required('Status is required'),
   company: Yup.string().required('Company is required')
@@ -33,6 +36,7 @@ const validationSchema = Yup.object().shape({
 
 // ** Icons Imports
 import Close from 'mdi-material-ui/Close'
+import { inputTabAccount, roleAccount, statusAccount } from './constants'
 
 const ImgStyled = styled('img')(({ theme }) => ({
   width: 120,
@@ -81,8 +85,78 @@ const TabAccount = props => {
     }
   }
 
-  const defaultValue = ''
-  
+  // Render valu select
+  const renderValueSelect = item => {
+    if (item.field === 'role') {
+      return roleAccount.map(role => {
+        return (
+          <MenuItem key={role.field} value={role.field}>
+            {role.value}
+          </MenuItem>
+        )
+      })
+    } else {
+      return statusAccount.map(status => (
+        <MenuItem key={status.field} value={status.value}>
+          {status.value}
+        </MenuItem>
+      ))
+    }
+  }
+
+  // Render input
+  const renderDefaultFilter = item => {
+    if (item.type === 'INPUT') {
+      const { field } = item
+      const message = errors[field] && errors[field].message
+
+      return (
+        <Grid item xs={12} sm={6} key={item.field}>
+          <Controller
+            control={control}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <TextField
+                  fullWidth
+                  required
+                  label={item.placeHolder}
+                  name={item.field}
+                  onChange={onChange}
+                  value={value}
+                />
+              )
+            }}
+            name={item.field}
+          />
+
+          <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{message}</Typography>
+        </Grid>
+      )
+    }
+
+    if (item.type === 'SELECT') {
+      return (
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth>
+            <Controller
+              control={control}
+              name={item.field}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <InputLabel>{item.placeHolder}</InputLabel>
+                  <Select name={item.field} onChange={onChange} value={value} label={item.placeHolder}>
+                    {renderValueSelect(item)}
+                  </Select>
+                </>
+              )}
+            />
+          </FormControl>
+
+          <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.role?.message}</Typography>
+        </Grid>
+      )
+    }
+  }
 
   return (
     <CardContent>
@@ -111,113 +185,9 @@ const TabAccount = props => {
               </Box>
             </Box>
           </Grid>
+          {inputTabAccount.map(item => renderDefaultFilter(item))}
 
-          <Grid item xs={12} sm={6}>
-            {/* <TextField fullWidth label='Username'  defaultValue="Duong"/> */}
-            <Controller
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField fullWidth label='Username' name='username' onChange={onChange} value={value} />
-              )}
-              name='username'
-            />
-            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.username?.message}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            {/* <TextField fullWidth label='Name' placeholder='John Doe' defaultValue='John Doe' /> */}
-            <Controller
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField fullWidth label='Name' name='name' onChange={onChange} value={value} />
-              )}
-              name='name'
-            />
-             <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.name?.message}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            {/* <TextField
-              fullWidth
-              type='email'
-              label='Email'
-              placeholder='johnDoe@example.com'
-              defaultValue='johnDoe@example.com'
-            /> */}
-            <Controller
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField fullWidth label='Email' name='email' onChange={onChange} value={value} />
-              )}
-              name='email'
-            />
-             <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.email?.message}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              {/* <InputLabel>Role</InputLabel>
-              <Select label='Role' defaultValue='admin'>
-                <MenuItem value='admin'>Admin</MenuItem>
-                <MenuItem value='author'>Author</MenuItem>
-                <MenuItem value='editor'>Editor</MenuItem>
-                <MenuItem value='maintainer'>Maintainer</MenuItem>
-                <MenuItem value='subscriber'>Subscriber</MenuItem>
-              </Select> */}
-              <Controller
-                control={control}
-                name='role'
-                render={({ field: { onChange, value } }) => (
-                  <>
-                    <InputLabel>Role</InputLabel>
-                    <Select name='role' onChange={onChange} value={value || defaultValue} label='Role'>
-                      <MenuItem value='admin'>Admin</MenuItem>
-                      <MenuItem value='author'>Author</MenuItem>
-                      <MenuItem value='editor'>Editor</MenuItem>
-                      <MenuItem value='maintainer'>Maintainer</MenuItem>
-                      <MenuItem value='subscriber'>Subscriber</MenuItem>
-                    </Select>
-                  </>
-                )}
-              />
-            </FormControl>
-            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.role?.message}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              {/* <InputLabel>Status</InputLabel>
-              <Select label='Status' defaultValue='active'>
-                <MenuItem value='active'>Active</MenuItem>
-                <MenuItem value='inactive'>Inactive</MenuItem>
-                <MenuItem value='pending'>Pending</MenuItem>
-              </Select> */}
-              <Controller
-                control={control}
-                name='status'
-                render={({ field: { onChange, value } }) => (
-                  <>
-                    <InputLabel>Status</InputLabel>
-                    <Select name='status' onChange={onChange} value={value || defaultValue} label='Role' >
-                      <MenuItem value='active'>Active</MenuItem>
-                      <MenuItem value='inactive'>Inactive</MenuItem>
-                      <MenuItem value='pending'>Pending</MenuItem>
-                    </Select>
-                  </>
-                )}
-              />
-            </FormControl>
-            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.status?.message}</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            {/* <TextField fullWidth label='Company' placeholder='ABC Pvt. Ltd.' defaultValue='ABC Pvt. Ltd.' /> */}
-            <Controller
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextField fullWidth label='Company' name='company' onChange={onChange} value={value} />
-              )}
-              name='company'
-            />
-             <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.company?.message}</Typography>
-          </Grid>
-
-          {openAlert ? (
+          {/* {openAlert ? (
             <Grid item xs={12} sx={{ mb: 3 }}>
               <Alert
                 severity='warning'
@@ -234,7 +204,7 @@ const TabAccount = props => {
                 </Link>
               </Alert>
             </Grid>
-          ) : null}
+          ) : null} */}
 
           <Grid item xs={12}>
             <Button variant='contained' type='submit' sx={{ marginRight: 3.5 }}>

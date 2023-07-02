@@ -28,6 +28,15 @@ const validationSchema = Yup.object().shape({
 })
 
 const TabSecurity = () => {
+  const baseDataRequest = {
+    newPassword: '',
+    currentPassword: '',
+    showNewPassword: false,
+    confirmNewPassword: '',
+    showCurrentPassword: false,
+    showConfirmNewPassword: false
+  }
+
   const {
     handleSubmit,
     control,
@@ -41,23 +50,16 @@ const TabSecurity = () => {
   }
 
   // ** States
-  const [values, setValues] = useState({
-    newPassword: '',
-    currentPassword: '',
-    showNewPassword: false,
-    confirmNewPassword: '',
-    showCurrentPassword: false,
-    showConfirmNewPassword: false
-  })
+  const [dataRequest, setDataRequest] = useState(baseDataRequest)
 
- 
+  const handleResetForm = () => setDataRequest(baseDataRequest)
+
   return (
     <form>
       <CardContent sx={{ paddingBottom: 0 }}>
         <Grid container spacing={5}>
           <Grid item xs={12} sm={6}>
             <Grid container spacing={5}>
-              
               <Grid item xs={12}>
                 {inputTabSecurity.map(input => {
                   const { field } = input
@@ -142,12 +144,7 @@ const TabSecurity = () => {
           <Button variant='contained' onClick={handleSubmit(onSubmit)} sx={{ marginRight: 3.5 }}>
             Save Changes
           </Button>
-          <Button
-            type='reset'
-            variant='outlined'
-            color='secondary'
-            onClick={() => setValues({ ...values, currentPassword: '', newPassword: '', confirmNewPassword: '' })}
-          >
+          <Button type='reset' variant='outlined' color='secondary' onClick={() => handleResetForm()}>
             Reset
           </Button>
         </Box>
