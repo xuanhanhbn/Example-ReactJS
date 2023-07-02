@@ -16,24 +16,7 @@ function CreateDocuments() {
 
   return (
     <div>
-      <form>
-        {/* <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => {
-            ;<CreateDocs value={value} onChange={onChange} />
-          }}
-          name='docs'
-        /> */}
-
-        <Controller
-          control={control}
-          render={({ field: { onChange, value } }) => <CreateDocs value={value} onChange={onChange} />}
-          name='name'
-        />
-        <Button type='submit' onSubmit={handleSubmit(onSubmit)}>
-          Create
-        </Button>
-      </form>
+      <CreateDocs />
     </div>
   )
 }
