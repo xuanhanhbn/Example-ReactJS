@@ -74,7 +74,7 @@ const TabAccount = props => {
 
   // ** State
   const [openAlert, setOpenAlert] = useState(true)
-  const [imgSrc, setImgSrc] = useState('/images/avatars/1.png')
+  const [imgSrc, setImgSrc] = useState('/images/avatars/1686130680-bpfull.jpg')
 
   const onChange = file => {
     const reader = new FileReader()
