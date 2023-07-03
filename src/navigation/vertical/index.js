@@ -49,6 +49,12 @@ const navigation = () => {
       path: '/admin/create-account',
       isShowMenu: true
     },
+
+    // Document
+    {
+      sectionTitle: 'Documents',
+      isShowMenu: true
+    },
     {
       title: 'Documents',
       icon: FileDocument,

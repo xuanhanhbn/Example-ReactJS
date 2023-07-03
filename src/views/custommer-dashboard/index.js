@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TableStickyHeader from '../tables/TableStickyHeader'
 import { Button, TextField } from '@mui/material'
 import Stack from '@mui/material/Stack'
@@ -10,15 +10,23 @@ import FormCreate from './components/FormCreate'
 import { Controller, useForm } from 'react-hook-form'
 
 import styles from './style.module.css'
+import { useDispatch } from 'react-redux'
+import { customerActions } from './customerSlice'
 
 function ListCustomer() {
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const { control, handleSubmit } = useForm()
+  const dispatch = useDispatch()
 
   const onSubmit = data => {
     console.log('datA: ', data)
   }
+
+  // Call api danh sach
+  useEffect(() => {
+    dispatch(customerActions.getListCustomer())
+  }, [])
 
   // Xử lí mở modal
   const handleOpenModalCreateCustomer = () => {

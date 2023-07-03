@@ -16,7 +16,10 @@ function createData(name, creator, creationDate) {
 export const columns = [
   { id: 'name', label: 'Name', minWidth: 300 },
   { id: 'creator', label: 'Creator', minWidth: 170, align: 'right' },
-  { id: 'creationDate', label: 'Creation Date', minWidth: 170, align: 'right' }
+  { id: 'creationDate', label: 'Creation Date', minWidth: 170, align: 'right' },
+  { id: 'implementationDate', label: 'Implementation Date', minWidth: 170, align: 'right' },
+  { id: 'endDate', label: 'End Date', minWidth: 170, align: 'right' },
+  { id: 'Department ', label: 'Department', minWidth: 170, align: 'right' }
 ]
 
 export const rows = [

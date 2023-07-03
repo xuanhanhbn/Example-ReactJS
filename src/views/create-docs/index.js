@@ -16,7 +16,12 @@ function CreateDocs() {
     formState: { errors }
   } = useForm()
 
+  const baseDataRequest = {
+    document: ''
+  }
+
   const [value, setValue] = useState(null)
+  const [dataRequest, setDataRequest] = useState(baseDataRequest)
 
   const editorOptions = {
     height: 400,
@@ -53,14 +58,28 @@ function CreateDocs() {
     ]
   }
 
-  const onSubmit = data => {
-    console.log(data)
+  const handleSendDocument = () => {
+    console.log('dataRequest: ', dataRequest)
+  }
+
+  const handleChange = content => {
+    const newDataRequest = {
+      ...dataRequest,
+      document: content
+    }
+
+    setDataRequest(newDataRequest)
   }
 
   return (
-    <SunEditor setContents={value} onChange={onSubmit} setOptions={editorOptions} />
+    <>
+      <SunEditor setContents={value} onChange={handleChange} setOptions={editorOptions} />
+      <Button onClick={() => handleSendDocument()}>Create</Button>
+    </>
 
     // <form onChange={handleSubmit(onSubmit)}>
+    //   {/* <SunEditor setContents={value} onChange={onSubmit} setOptions={editorOptions} /> */}
+
     //   <Button>Create</Button>
     //   <Controller
     //     control={control}
