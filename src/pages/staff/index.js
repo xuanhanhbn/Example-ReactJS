@@ -11,11 +11,10 @@ const MUITable = () => {
     return (
         <Grid item xs={12}>
             <Card>
-                <CardHeader title='Quản lí hoạt động nhân sự' titleTypographyProps={{ variant: 'h6' }} />
+                <CardHeader title='Staff Manager' titleTypographyProps={{ variant: 'h6' }} />
                 <TableCollapsible />
             </Card>
         </Grid>
-
     )
 }
 

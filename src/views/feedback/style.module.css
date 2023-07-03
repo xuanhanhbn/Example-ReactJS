@@ -1,0 +1,14 @@
+.carousel {
+    height: 200px;
+    width: 100%;
+    background-color: aqua;
+
+}
+
+.carouselInner {
+    display: flex;
+}
+
+.button {
+    padding-left: 80px;
+}

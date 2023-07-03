@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import CardContent from '@mui/material/CardContent'
 import { Carousel, Button } from 'antd'
-import { useRef } from "react"
+import { useRef, useState } from "react"
 
 // ** Icons Imports
 import TrendingUp from 'mdi-material-ui/TrendingUp'
@@ -15,12 +15,14 @@ import StarOutline from 'mdi-material-ui/StarOutline'
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
 import styles from './style.module.css'
-
+import image from './helper/CarouselData'
+import { set } from 'nprogress'
 
 
 
 const CardMembership = () => {
     const ref = useRef()
+    const [currImg, setCurrImg] = useState(1)
 
     return (
         <Card>
@@ -65,60 +67,29 @@ const CardMembership = () => {
                             infiniteLoop
                             showThumbs={false}
                             ref={ref}>
-                            <div>
-                                <h3 style={{
-                                    height: '160px',
-                                    color: '#fff',
-                                    lineHeight: '160px',
-                                    textAlign: 'center',
-                                    background: '#7749',
+                            <div className={styles.carousel}>
+                                <div className={styles.carouselInner}
 
-                                    // backgroundImage: `url(${require(img1.png)})`
-                                }}>
-                                </h3>
-                            </div>
-                            <div>
-                                <h3 style={{
-                                    height: '160px',
-                                    color: '#fff',
-                                    lineHeight: '160px',
-                                    textAlign: 'center',
-                                    background: '#7749',
-                                }}>
-                                </h3>
-                            </div>
-                            <div>
-                                <h3 style={{
-                                    height: '160px',
-                                    color: '#fff',
-                                    lineHeight: '160px',
-                                    textAlign: 'center',
-                                    background: '#7749',
-                                }}>
+                                // style={{ backgroundImage: `url(${image[currImg].image})` }}
+                                >
 
-                                </h3>
+                                </div>
                             </div>
-                            <div>
-                                <h3 style={{
-                                    height: '160px',
-                                    color: '#fff',
-                                    lineHeight: '160px',
-                                    textAlign: 'center',
-                                    background: '#7749',
-                                }}>
 
-                                </h3>
-                            </div>
                         </Carousel>
-                        <div >
+                        <div className={styles.button} >
                             <Button onClick={() => {
-                                ref.current.prev();
+                                ref.current.prev()
+
+                                // setCurrImg(currImg - 1)
                             }}>Back</Button>
                             <Button onClick={() => {
-                                ref.current.goTo(0);
+                                ref.current.goTo(0)
                             }}>Reset</Button>
                             <Button onClick={() => {
                                 ref.current.next()
+
+                                // setCurrImg(currImg + 1)
                             }}>Next</Button>
                         </div>
                     </CardContent >
