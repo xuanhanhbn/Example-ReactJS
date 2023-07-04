@@ -33,6 +33,10 @@ const navigation = () => {
       isShowMenu: true
     },
     {
+      sectionTitle: 'Job Manager',
+      isShowMenu: true
+    },
+    {
       title: 'Groups',
       icon: AccountGroupOutline,
       path: '/groups',
