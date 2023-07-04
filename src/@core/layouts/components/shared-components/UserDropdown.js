@@ -38,7 +38,7 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 const UserDropdown = () => {
   const globalData = useSelector(makeSelectLogin)
   const dataUser = globalData?.dataUser
-  console.log('dataUser: ', dataUser)
+  console.log('dataUser2: ', dataUser)
 
   // ** States
   const [anchorEl, setAnchorEl] = useState(null)
