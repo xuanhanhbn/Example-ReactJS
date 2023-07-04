@@ -23,7 +23,7 @@ export const columns = [
 ]
 
 export const rows = [
-  createData('qưe', 'Admin', '23-6-2023'),
+  createData('qwe', 'Admin', '23-6-2023'),
   createData('rty', 'Admin', '24-6-2023'),
   createData('uio', 'Admin', '25-6-2023'),
   createData('pas', 'Admin', '26-6-2023'),
