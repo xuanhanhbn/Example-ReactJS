@@ -5,7 +5,7 @@ const initialState = {
   errorMessage: '',
   isSuccess: false,
   isError: false,
-  dataRegister: [],
+  dataCustomer: [],
   dataError: {}
 }
 
@@ -13,18 +13,18 @@ const customer = createSlice({
   name: 'customer',
   initialState,
   reducers: {
-    registerAccount(state) {
+    getListCustomer(state) {
       state.isLoading = true
     },
-    registerAccountFailed(state, action) {
+    getListCustomerFailed(state, action) {
       state.isLoading = false
       state.isError = true
       state.dataError = action.payload || {}
       state.errorMessage = ''
     },
-    registerAccountSuccess(state, action) {
+    getListCustomerSuccess(state, action) {
       state.isLoading = false
-      state.dataRegister = action.payload || []
+      state.dataCustomer = action.payload || []
       state.isSuccess = true
     },
     clear(state) {

@@ -10,6 +10,7 @@ import Account from 'mdi-material-ui/Account'
 import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import { NotificationClearAll } from 'mdi-material-ui'
+import { FileDocument } from 'mdi-material-ui'
 
 
 const navigation = () => {
@@ -23,8 +24,9 @@ const navigation = () => {
     {
       title: 'Account Settings',
       icon: AccountCogOutline,
-      path: '/account-settings',
-      isShowMenu: true
+      path: '/account-settings'
+
+      // isShowMenu: true
     },
     {
       title: 'Customer',
@@ -36,8 +38,7 @@ const navigation = () => {
       title: 'Login',
       icon: Login,
       path: '/pages/login',
-      openInNewTab: true,
-      isShowMenu: true
+      openInNewTab: true
     },
     {
       sectionTitle: 'User Interface',
@@ -49,6 +50,19 @@ const navigation = () => {
       path: '/admin/create-account',
       isShowMenu: true
     },
+
+    // Document
+    {
+      sectionTitle: 'Documents',
+      isShowMenu: true
+    },
+    {
+      title: 'Documents',
+      icon: FileDocument,
+      path: '/admin/list-documents',
+      isShowMenu: true
+    },
+
     {
       title: 'Forgot Password',
       icon: Login,

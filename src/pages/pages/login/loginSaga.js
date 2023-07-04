@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { customerActions, loginPageActions } from './loginSlice'
-import { postApiProduct } from './api'
+import { getApiUser, postApiProduct } from './api'
 
 function* onLogin(data) {
   const payload = data.payload || []
@@ -16,7 +16,22 @@ function* onLogin(data) {
     yield put(loginPageActions.loginPageFailed('internet'))
   }
 }
+function* onGetUserInfo() {
+  const url = 'User/me'
+  try {
+    const response = yield call(getApiUser, url)
+    console.log('response: ', response)
+    if (response && response.status === 200) {
+      yield put(loginPageActions.userInfoSuccess(response.data))
+    } else {
+      yield put(loginPageActions.userInfoFailed())
+    }
+  } catch (error) {
+    yield put(loginPageActions.userInfoFailed('internet'))
+  }
+}
 
 export default function* loginSaga() {
   yield takeLatest(loginPageActions.loginPage, onLogin)
+  yield takeLatest(loginPageActions.userInfo, onGetUserInfo)
 }

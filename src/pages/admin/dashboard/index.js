@@ -24,28 +24,23 @@ import DepositWithdraw from 'src/views/dashboard/DepositWithdraw'
 import SalesByCountries from 'src/views/dashboard/SalesByCountries'
 import { useEffect, useState } from 'react'
 import { parseToken } from 'src/utils/jwt'
-import { useSelector } from 'react-redux'
-import { makeSelectLogin } from 'src/pages/pages/login/loginSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginPageActions, makeSelectLogin } from 'src/pages/pages/login/loginSlice'
 
 const Dashboard = () => {
-  const [userName, setUserName] = useState('')
   const loginSuccess = useSelector(makeSelectLogin)
-  const { isSuccess } = loginSuccess
+  const { isSuccess, dataLogin } = loginSuccess
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    if (isSuccess) {
-      const dataLoginPage = JSON.parse(localStorage.getItem('loginPage'))
-      const getUserInfo = parseToken(dataLoginPage)
-
-      setUserName(getUserInfo ? getUserInfo.FullName : '')
-    }
+    dispatch(loginPageActions.userInfo())
   }, [])
 
   return (
     <ApexChartWrapper>
       <Grid container spacing={6}>
         <Grid item xs={12} md={4}>
-          <Trophy userName={userName} />
+          <Trophy />
         </Grid>
         <Grid item xs={12} md={8}>
           <StatisticsCard />

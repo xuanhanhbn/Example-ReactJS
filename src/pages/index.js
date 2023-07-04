@@ -50,6 +50,7 @@ import { inputLogin } from './pages/login/constants'
 import ForgotPassword from './pages/forgot-password'
 import { useSnackbar } from 'notistack'
 import Loading from 'src/components/Loading'
+import { FilledInput } from '@mui/material'
 
 const validationSchema = Yup.object().shape({
   identifier: Yup.string().required('User name is required'),
@@ -88,6 +89,7 @@ const LoginPage = () => {
     showPassword: false
   })
   const [onOpen, setOnOpen] = useState(false)
+  const [isShowPassword, setIsShowPassword] = useState(false)
 
   // useForm
   const {
@@ -133,7 +135,8 @@ const LoginPage = () => {
   }
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword })
+    // setValues({ ...values, showPassword: !values.showPassword })
+    setIsShowPassword(!isShowPassword)
   }
 
   const handleMouseDownPassword = event => {
@@ -241,21 +244,38 @@ const LoginPage = () => {
                     render={({ field: { onChange, value } }) => {
                       return (
                         <TextField
-                          key={input.field}
                           placeholder={input.lable}
                           name={input.field}
                           label={input.lable}
                           value={value}
-                          type={input.type}
+                          type={isShowPassword ? 'text' : input.type}
                           onChange={onChange}
                           required
                           fullWidth
+                          variant='outlined'
                           style={{ marginBottom: 10 }}
+                          id='outlined-start-adornment'
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position='end'>
+                                {input.type === 'password' && (
+                                  <Button onClick={handleClickShowPassword}>
+                                    {isShowPassword ? <EyeOutline /> : <EyeOffOutline />}
+                                  </Button>
+                                )}
+                              </InputAdornment>
+                            )
+                          }}
                         />
                       )
                     }}
                     name={input.field}
                   />
+                  {/* {input.type === 'password' && (
+                    <Button onClick={handleClickShowPassword}>
+                      {isShowPassword ? <EyeOutline /> : <EyeOffOutline />}
+                    </Button>
+                  )} */}
                   <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{message}</Typography>
                 </Grid>
               )
@@ -275,6 +295,8 @@ const LoginPage = () => {
               variant='contained'
               sx={{ marginBottom: 7 }}
               onClick={handleSubmit(onSubmit)}
+
+              // onClick={() => router.push('/admin/dashboard')}
             >
               Login
             </Button>

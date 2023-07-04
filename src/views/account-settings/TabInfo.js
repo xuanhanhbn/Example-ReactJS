@@ -41,8 +41,6 @@ const CustomInput = forwardRef((props, ref) => {
   return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
 })
 
-
-
 const TabInfo = () => {
   const {
     control,

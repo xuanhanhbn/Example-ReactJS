@@ -25,6 +25,11 @@ import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 import { Box } from 'mdi-material-ui'
 import { Typography } from '@mui/material'
 
+import { Controller, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+import moment from 'moment/moment'
+
 const CustomInput = forwardRef((props, ref) => {
   return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
 })
@@ -53,7 +58,29 @@ const ResetButtonStyled = styled(Button)(({ theme }) => ({
   }
 }))
 
+const validationSchema = Yup.object().shape({
+  birthdate: Yup.string().required('Birth date is required'),
+  phone: Yup.string().required('Phone is required'),
+  name: Yup.string().required('Name is required'),
+  country: Yup.string().required('Country is required'),
+  languages: Yup.string().required('Languages is required'),
+  gender: Yup.string().required('Gender is required')
+})
+
 const CreateUser = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  })
+
+  const onSubmit = data => {
+    data.birthdate = moment(data.birthdate).format('YYYY-MM-DD')
+    console.log(data)
+  }
+
   // ** State
   const [date, setDate] = useState(null)
   const [imgSrc, setImgSrc] = useState('/images/avatars/1.png')
@@ -67,9 +94,11 @@ const CreateUser = () => {
     }
   }
 
+  const defaultValue = ''
+
   return (
     <CardContent>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={7}>
           <Grid item xs={12} sx={{ marginTop: 4.8, marginBottom: 3 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -95,7 +124,23 @@ const CreateUser = () => {
             </Box>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <DatePickerWrapper>
+            {/* <TextField
+              fullWidth
+              label='Website'
+              placeholder='https://example.com/'
+              defaultValue='https://themeselection.com/'
+            /> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField fullWidth label='Name' placeholder='Nguyen Van A' value={value} onChange={onChange} />
+              )}
+              name='name'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.name?.message}</Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            {/* <DatePickerWrapper>
               <DatePicker
                 selected={date}
                 showYearDropdown
@@ -105,21 +150,51 @@ const CreateUser = () => {
                 customInput={<CustomInput />}
                 onChange={date => setDate(date)}
               />
-            </DatePickerWrapper>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth type='number' label='Phone' placeholder='(123) 456-7890' />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              label='Website'
-              placeholder='https://example.com/'
-              defaultValue='https://themeselection.com/'
+            </DatePickerWrapper> */}
+            <Controller
+              control={control}
+              render={({ field }) => (
+                <DatePickerWrapper>
+                  <DatePicker
+                    maxDate={new Date()}
+                    showYearDropdown
+                    showMonthDropdown
+                    id='account-settings-date'
+                    placeholderText='YYYY-MM-DD'
+                    customInput={<CustomInput />}
+                    onChange={date => field.onChange(date)}
+                    selected={field.value}
+                    dateFormat='yyyy-MM-dd'
+                  />
+                </DatePickerWrapper>
+              )}
+              name='birthdate'
             />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>
+              {errors.birthdate?.message}
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
+            {/* <TextField fullWidth type='number' label='Phone' placeholder='(123) 456-7890' /> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextField
+                  fullWidth
+                  multiline
+                  label='Phone'
+                  onChange={onChange}
+                  placeholder='(123) 456-7890'
+                  value={value}
+                />
+              )}
+              name='phone'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.phone?.message}</Typography>
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            {/* <FormControl fullWidth>
               <InputLabel>Country</InputLabel>
               <Select label='Country' defaultValue='USA'>
                 <MenuItem value='USA'>USA</MenuItem>
@@ -127,10 +202,28 @@ const CreateUser = () => {
                 <MenuItem value='Australia'>Australia</MenuItem>
                 <MenuItem value='Germany'>Germany</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <FormControl fullWidth>
+                    <InputLabel>Country</InputLabel>
+                    <Select label='Country' onChange={onChange} value={value || defaultValue}>
+                      <MenuItem value='USA'>USA</MenuItem>
+                      <MenuItem value='UK'>UK</MenuItem>
+                      <MenuItem value='Australia'>Australia</MenuItem>
+                      <MenuItem value='Germany'>Germany</MenuItem>
+                    </Select>
+                  </FormControl>
+                </>
+              )}
+              name='country'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.country?.message}</Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
               <InputLabel id='form-layouts-separator-multiple-select-label'>Languages</InputLabel>
               <Select
                 multiple
@@ -147,20 +240,72 @@ const CreateUser = () => {
                 <MenuItem value='German'>German</MenuItem>
                 <MenuItem value='Arabic'>Arabic</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <FormControl fullWidth>
+                    <InputLabel id='form-layouts-separator-multiple-select-label'>Languages</InputLabel>
+                    <Select
+                      onChange={onChange}
+                      value={value || defaultValue}
+                      id='account-settings-multiple-select'
+                      labelId='account-settings-multiple-select-label'
+                      input={<OutlinedInput label='Languages' id='select-multiple-language' />}
+                    >
+                      <MenuItem value='English'>English</MenuItem>
+                      <MenuItem value='French'>French</MenuItem>
+                      <MenuItem value='Spanish'>Spanish</MenuItem>
+                      <MenuItem value='Portuguese'>Portuguese</MenuItem>
+                      <MenuItem value='Italian'>Italian</MenuItem>
+                      <MenuItem value='German'>German</MenuItem>
+                      <MenuItem value='Arabic'>Arabic</MenuItem>
+                    </Select>
+                  </FormControl>
+                </>
+              )}
+              name='languages'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>
+              {errors.languages?.message}
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl>
+            {/* <FormControl>
               <FormLabel sx={{ fontSize: '0.875rem' }}>Gender</FormLabel>
               <RadioGroup row defaultValue='male' aria-label='gender' name='account-settings-info-radio'>
                 <FormControlLabel value='male' label='Male' control={<Radio />} />
                 <FormControlLabel value='female' label='Female' control={<Radio />} />
                 <FormControlLabel value='other' label='Other' control={<Radio />} />
               </RadioGroup>
-            </FormControl>
+            </FormControl> */}
+            <Controller
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <>
+                  <FormControl>
+                    <FormLabel sx={{ fontSize: '0.875rem' }}>Gender</FormLabel>
+                    <RadioGroup
+                      onChange={onChange}
+                      value={value || defaultValue}
+                      row
+                      aria-label='gender'
+                      name='account-settings-info-radio'
+                    >
+                      <FormControlLabel value='male' label='Male' control={<Radio />} />
+                      <FormControlLabel value='female' label='Female' control={<Radio />} />
+                      <FormControlLabel value='other' label='Other' control={<Radio />} />
+                    </RadioGroup>
+                  </FormControl>
+                </>
+              )}
+              name='gender'
+            />
+            <Typography style={{ color: 'red', marginTop: 0, marginBottom: 10 }}>{errors.gender?.message}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Button variant='contained' sx={{ marginRight: 3.5 }}>
+            <Button variant='contained' type='submit' sx={{ marginRight: 3.5 }}>
               Save Changes
             </Button>
             <Button type='reset' variant='outlined' color='secondary' onClick={() => setDate(null)}>
