@@ -9,6 +9,8 @@ import CardContent from '@mui/material/CardContent'
 import { Carousel, Button } from 'antd'
 import { useRef, useState } from "react"
 
+
+
 // ** Icons Imports
 import TrendingUp from 'mdi-material-ui/TrendingUp'
 import StarOutline from 'mdi-material-ui/StarOutline'
@@ -22,7 +24,7 @@ import { set } from 'nprogress'
 
 const CardMembership = () => {
     const ref = useRef()
-    const [currImg, setCurrImg] = useState(1)
+    const [currImg, setCurrImg] = useState(0)
 
     return (
         <Card>
@@ -72,7 +74,6 @@ const CardMembership = () => {
 
                                 // style={{ backgroundImage: `url(${image[currImg].image})` }}
                                 >
-
                                 </div>
                             </div>
 
@@ -82,14 +83,20 @@ const CardMembership = () => {
                                 ref.current.prev()
 
                                 // setCurrImg(currImg - 1)
+
                             }}>Back</Button>
+
                             <Button onClick={() => {
+
                                 ref.current.goTo(0)
+
                             }}>Reset</Button>
+
                             <Button onClick={() => {
                                 ref.current.next()
 
                                 // setCurrImg(currImg + 1)
+
                             }}>Next</Button>
                         </div>
                     </CardContent >

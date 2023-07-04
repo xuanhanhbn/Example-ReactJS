@@ -12,6 +12,7 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import IconButton from '@mui/material/IconButton'
 import TableContainer from '@mui/material/TableContainer'
+import styles from './style.module.css'
 
 import { EyeFilled } from '@ant-design/icons';
 
@@ -77,9 +78,11 @@ const Row = props => {
                       <TableCell align='right'>{historyRow.date2}</TableCell>
                       <TableCell align='right'>{Math.round(historyRow.amount * row.kpi * 100) / 100}</TableCell>
                       <TableCell align='right'>
-                        <Button href='/account-settings' >
+
+                        <Button className={styles.button} href='/account-settings' >
                           <EyeFilled />
                         </Button>
+
                       </TableCell>
                     </TableRow>
                   ))}
