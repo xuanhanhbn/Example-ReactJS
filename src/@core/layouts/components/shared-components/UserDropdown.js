@@ -39,6 +39,7 @@ const UserDropdown = () => {
   const globalData = useSelector(makeSelectLogin)
   const dataUser = globalData?.dataUser
   console.log('dataUser: ', dataUser)
+
   // ** States
   const [anchorEl, setAnchorEl] = useState(null)
 
