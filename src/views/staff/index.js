@@ -78,11 +78,14 @@ const Row = props => {
                       <TableCell align='right'>{historyRow.date2}</TableCell>
                       <TableCell align='right'>{Math.round(historyRow.amount * row.kpi * 100) / 100}</TableCell>
                       <TableCell align='right'>
-
-                        <Button className={styles.button} href='/account-settings' >
+                        <Button
+                          size='small'
+                          variant='contained'
+                          style={{ backgroundColor: '#9155FD', color: 'white' }}
+                          sx={{ marginLeft: 10 }}
+                        >
                           <EyeFilled />
                         </Button>
-
                       </TableCell>
                     </TableRow>
                   ))}

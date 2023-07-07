@@ -122,6 +122,12 @@ const navigation = () => {
 
       // path: '/form-layouts',
       // isShowMenu: true
+    },
+    {
+      icon: CreditCardOutline,
+      title: 'customer-care',
+      path: '/customer-care',
+      isShowMenu: true
     }
   ]
 }

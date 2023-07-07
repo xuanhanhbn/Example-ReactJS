@@ -17,14 +17,12 @@ import StarOutline from 'mdi-material-ui/StarOutline'
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
 import styles from './style.module.css'
-import image from './helper/CarouselData'
-import { set } from 'nprogress'
+
 
 
 
 const CardMembership = () => {
     const ref = useRef()
-    const [currImg, setCurrImg] = useState(0)
 
     return (
         <Card>
@@ -68,13 +66,21 @@ const CardMembership = () => {
                             autoPlay
                             infiniteLoop
                             showThumbs={false}
-                            ref={ref}>
-                            <div className={styles.carousel}>
-                                <div className={styles.carouselInner}
+                            ref={ref}
+                            className={styles.carousel}
+                        >
 
-                                // style={{ backgroundImage: `url(${image[currImg].image})` }}
-                                >
-                                </div>
+                            <div
+                                className={styles.importimg}>
+                            </div>
+                            <div
+                                className={styles.importimg1}>
+                            </div>
+                            <div
+                                className={styles.importimg2}>
+                            </div>
+                            <div
+                                className={styles.importimg3}>
                             </div>
 
                         </Carousel>
