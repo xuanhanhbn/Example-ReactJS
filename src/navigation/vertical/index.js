@@ -9,7 +9,15 @@ import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
 import Account from 'mdi-material-ui/Account'
 import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
-import { NotificationClearAll } from 'mdi-material-ui'
+import {
+  AccountGroupOutline,
+  FileDocument,
+  SwapHorizontal,
+  AccountBoxMultipleOutline,
+  ForumOutline,
+  FileDocumentMultipleOutline
+} from 'mdi-material-ui'
+import { flip } from '@popperjs/core'
 
 const navigation = () => {
   return [
@@ -32,13 +40,31 @@ const navigation = () => {
       isShowMenu: true
     },
     {
-      sectionTitle: 'Job Manager',
+      sectionTitle: 'Marketing Department',
       isShowMenu: true
     },
     {
-      title: 'Groups',
-      icon: AccountGroupOutline,
-      path: '/groups',
+      title: 'Forums',
+      icon: SwapHorizontal,
+      path: '/marketing-department/forums',
+      isShowMenu: true
+    },
+    {
+      title: 'Members',
+      icon: AccountBoxMultipleOutline,
+      path: '/marketing-department/members',
+      isShowMenu: true
+    },
+    {
+      title: 'Messages',
+      icon: ForumOutline,
+      path: '/marketing-department/messages',
+      isShowMenu: true
+    },
+    {
+      title: 'Documents',
+      icon: FileDocumentMultipleOutline,
+      path: '/marketing-department/documents',
       isShowMenu: true
     },
     {
