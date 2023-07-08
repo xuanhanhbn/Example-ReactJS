@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // ** MUI Imports
 import Paper from '@mui/material/Paper'
@@ -12,6 +12,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TablePagination from '@mui/material/TablePagination'
 import { Icon, Link } from '@mui/material'
 import HomeOutline from 'mdi-material-ui/HomeOutline'
+import EyeOutline from 'mdi-material-ui/EyeOutline'
+
 import { Delete } from 'mdi-material-ui'
 
 const columnsDefault = [
@@ -64,7 +66,7 @@ const rowDefault = [
 ]
 
 const TableStickyHeader = props => {
-  const { rows, columns } = props
+  const { rows, columns, parseFunction } = props
   const rowsDefault = rows ? rows : rowDefault || []
   const columsDefault = columns ? columns : columnsDefault || []
 
@@ -110,7 +112,7 @@ const TableStickyHeader = props => {
                         {column.id === 'actions' && (
                           <>
                             <Link href='/account-settings/'>
-                              <HomeOutline style={{ fontSize: 18, marginRight: 5 }} />
+                              <EyeOutline style={{ fontSize: 18, marginRight: 5 }} />
                             </Link>
                             <Delete style={{ fontSize: 18, color: 'red' }} color='red' />
                           </>
