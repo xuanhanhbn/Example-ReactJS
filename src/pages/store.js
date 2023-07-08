@@ -47,6 +47,7 @@ const store = configureStore({
       }
     }).concat(api.middleware)
     middlewares.push(sagaMiddleware)
+
     // if (__DEV__ && !process.env.JEST_WORKER_ID) {
     //   const createDebugger = require('redux-flipper').default
     // }

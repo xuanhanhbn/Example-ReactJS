@@ -22,6 +22,7 @@ import TabSecurity from 'src/views/account-settings/TabSecurity'
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
+import { useRouter } from 'next/router'
 
 const Tab = styled(MuiTab)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -44,6 +45,9 @@ const TabName = styled('span')(({ theme }) => ({
 const AccountSettings = () => {
   // ** State
   const [value, setValue] = useState('account')
+
+  const router = useRouter()
+  console.log('router: ', router)
 
   const handleChange = (event, newValue) => {
     setValue(newValue)

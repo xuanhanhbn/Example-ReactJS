@@ -6,11 +6,11 @@ import HomeOutline from 'mdi-material-ui/HomeOutline'
 import FormatLetterCase from 'mdi-material-ui/FormatLetterCase'
 import AccountCogOutline from 'mdi-material-ui/AccountCogOutline'
 import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
-import Account from 'mdi-material-ui/Account'
-import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
-import { NotificationClearAll } from 'mdi-material-ui'
 import { FileDocument } from 'mdi-material-ui'
+
+//  ** Components imports
+import ListDocument from 'src/views/admin/documents'
 
 const navigation = () => {
   return [
@@ -60,6 +60,8 @@ const navigation = () => {
       icon: FileDocument,
       path: '/admin/list-documents',
       isShowMenu: true
+
+      // component: ListDocument
     },
 
     {
