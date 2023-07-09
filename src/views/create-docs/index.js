@@ -9,6 +9,12 @@ import { InputLabel, TextField, Typography } from '@mui/material'
 import { Label } from 'mdi-material-ui'
 import { Input } from 'antd'
 
+const validationSchema = Yup.object().shape({
+  title: Yup.string().required('Title is required'),
+  category: Yup.string().required('Category is required'),
+  subCategory: Yup.string().required('subCategory is required')
+})
+
 const SunEditor = dynamic(() => import('suneditor-react'), {
   ssr: false
 })
@@ -18,7 +24,9 @@ function CreateDocs() {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm()
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  })
 
   const baseDataRequest = {
     title: '',
