@@ -7,7 +7,7 @@ import FormatLetterCase from 'mdi-material-ui/FormatLetterCase'
 import AccountCogOutline from 'mdi-material-ui/AccountCogOutline'
 import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
-<<<<<<< HEAD
+
 import {
   AccountGroupOutline,
   FileDocument,
@@ -17,9 +17,6 @@ import {
   FileDocumentMultipleOutline
 } from 'mdi-material-ui'
 import { flip } from '@popperjs/core'
-=======
-import { FileDocument } from 'mdi-material-ui'
->>>>>>> dev
 
 //  ** Components imports
 import ListDocument from 'src/views/admin/documents'
@@ -64,7 +61,7 @@ const navigation = () => {
       title: 'Messages',
       icon: ForumOutline,
       path: '/marketing-department/messages',
-      isShowMenu: true
+      isShowMenu: false
     },
     {
       title: 'Documents',
@@ -88,6 +85,13 @@ const navigation = () => {
       path: '/admin/create-account',
       isShowMenu: true
     },
+
+    // {
+    //   title: 'Custommer Detail',
+    //   icon: AccountCogOutline,
+    //   path: 'custommer-detail',
+    //   isShowMenu: false
+    // },
 
     // Document
     {

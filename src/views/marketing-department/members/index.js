@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
 import { marketingMembers } from './constants'
+import Link from 'next/link'
 
 function MarketingMembers() {
   return (
@@ -31,19 +32,25 @@ function MarketingMembers() {
                   padding: theme => `${theme.spacing(9.75, 5, 9.25)} !important`
                 }}
               >
-                <Avatar
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    marginBottom: 2.25,
-                    color: 'common.white',
-                    backgroundColor: 'primary.main'
-                  }}
-                  src={member.avatar}
-                />
-                <Typography variant='h6' sx={{ marginBottom: 2.75 }}>
-                  {member.fullName}
-                </Typography>
+                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                  <Link href='/custommer-detail/' passHref>
+                    <Avatar
+                      sx={{
+                        width: 50,
+                        height: 50,
+                        marginBottom: 2.25,
+                        color: 'common.white',
+                        backgroundColor: 'primary.main'
+                      }}
+                      src={member.avatar}
+                    />
+                  </Link>
+                  <Link href='/custommer-detail/' passHref>
+                    <Typography variant='h6' sx={{ marginBottom: 2.75 }}>
+                      {member.fullName}
+                    </Typography>
+                  </Link>
+                </div>
                 <Typography variant='body2' sx={{ marginBottom: 6 }}>
                   {member.jobTitle}
                 </Typography>

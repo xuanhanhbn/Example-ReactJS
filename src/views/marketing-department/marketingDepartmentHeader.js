@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Box from '@mui/material/Box'
-import { Forum, Account, MessageProcessingOutline } from 'mdi-material-ui'
+import { Forum, Account } from 'mdi-material-ui'
 import { styled } from '@mui/material/styles'
 
 const ImgStyled = styled('img')(({ theme }) => ({
