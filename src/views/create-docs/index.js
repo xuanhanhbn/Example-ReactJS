@@ -9,6 +9,9 @@ import { InputLabel, TextField, Typography } from '@mui/material'
 import { Label } from 'mdi-material-ui'
 import { Input } from 'antd'
 
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   category: Yup.string().required('Category is required'),
@@ -95,15 +98,18 @@ function CreateDocs() {
                   }
 
                   return (
-                    <TextField
-                      placeholder={item.label}
-                      name={item.field}
-                      label={item.label}
-                      value={value}
-                      onChange={onChange}
-                      required
-                      fullWidth
-                    />
+                    <div>
+                      <div style={{ paddingBottom: 10, paddingTop: 15, fontWeight: 500 }}>{item.inputLabel}</div>
+                      <TextField
+                        placeholder={item.label}
+                        name={item.field}
+                        label={item.label}
+                        value={value}
+                        onChange={onChange}
+                        required
+                        fullWidth
+                      />
+                    </div>
                   )
                 }}
               />
@@ -111,7 +117,12 @@ function CreateDocs() {
             </>
           )
         })}
-        <Button onClick={handleSubmit(onSubmit)}>Create</Button>
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          style={{ border: '1px solid  #3a35411f', padding: '5px 25px', backgroundColor: '#9155FD', color: 'white' }}
+        >
+          Create
+        </Button>
       </form>
     </>
   )
