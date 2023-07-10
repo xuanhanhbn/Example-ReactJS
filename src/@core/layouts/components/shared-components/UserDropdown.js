@@ -25,6 +25,7 @@ import HelpCircleOutline from 'mdi-material-ui/HelpCircleOutline'
 import { Button } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { makeSelectLogin } from 'src/pages/pages/login/loginSlice'
+import { useSnackbar } from 'notistack'
 
 // ** Styled Components
 const BadgeContentSpan = styled('span')(({ theme }) => ({
@@ -44,18 +45,9 @@ const UserDropdown = () => {
 
   // ** Hooks
   const router = useRouter()
+  const { enqueueSnackbar } = useSnackbar()
 
-  const handleDropdownOpen = event => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleDropdownClose = url => {
-    console.log('url: ', url)
-    if (url) {
-      router.push(url)
-    }
-    setAnchorEl(null)
-  }
+  const handleShowSnackbar = (message, variant = 'success') => enqueueSnackbar(message, { variant })
 
   const styles = {
     py: 2,
@@ -69,6 +61,23 @@ const UserDropdown = () => {
       fontSize: '1.375rem',
       color: 'text.secondary'
     }
+  }
+
+  const handleDropdownOpen = event => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleDropdownClose = url => {
+    console.log('url: ', url)
+    if (url) {
+      router.push(url)
+    }
+    setAnchorEl(null)
+  }
+
+  const handleLogout = () => {
+    handleDropdownClose('/')
+    handleShowSnackbar('Logout Success')
   }
 
   return (
@@ -148,7 +157,7 @@ const UserDropdown = () => {
           </Box>
         </MenuItem>
         <Divider />
-        <MenuItem sx={{ py: 2 }} onClick={() => handleDropdownClose('/')}>
+        <MenuItem sx={{ py: 2 }} onClick={() => handleLogout()}>
           <LogoutVariant sx={{ marginRight: 2, fontSize: '1.375rem', color: 'text.secondary' }} />
           Logout
         </MenuItem>

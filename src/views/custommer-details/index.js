@@ -140,7 +140,7 @@ function CustommerDetails() {
                           <p style={{ fontWeight: 600, marginTop: 3 }}>160 Parkway, CA, USA</p>
                         </div>
                       </div>
-                      <div style={{ marginTop: 20, display: 'flex' }}>
+                      <div style={{ marginTop: 20, display: 'flex', justifyContent: 'space-between' }}>
                         <Button style={{ border: '1px solid  #3a35411f', padding: '5px 25px' }}>Call</Button>
                         <Button
                           style={{
