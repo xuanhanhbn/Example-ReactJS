@@ -101,13 +101,11 @@ const TabAccount = props => {
 
   const onSubmit = data => console.log(data)
 
-  // ** State
-<<<<<<< HEAD
+  // // ** State
   const [openAlert, setOpenAlert] = useState(true)
-  const [imgSrc, setImgSrc] = useState('/images/avatars/1686130680-bpfull.jpg')
-=======
+  // const [imgSrc, setImgSrc] = useState('/images/avatars/1686130680-bpfull.jpg')
+
   const [imgSrc, setImgSrc] = useState('/images/avatars/1.png')
->>>>>>> dev
 
   const onChange = file => {
     const reader = new FileReader()
