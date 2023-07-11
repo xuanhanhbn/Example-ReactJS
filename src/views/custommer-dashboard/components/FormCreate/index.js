@@ -19,7 +19,7 @@ import { inputAddCustomer } from '../../constant'
 import ApiContext from 'src/@core/store/context'
 import { useContext } from 'react'
 import { get, postApiProduct } from './api'
-import api, { BASE_URL } from 'src/utils/baseApi'
+import api, { BASE_URL } from 'src/utils/baseApiNoAuth'
 import { useDispatch, useSelector } from 'react-redux'
 import { customerActions, makeSelectCustomer } from '../../customerSlice'
 
@@ -48,9 +48,13 @@ const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
 const validationSchema = Yup.object().shape({
-  userId: Yup.string().required('User ID is required').min(6, 'User ID must be at least 6 characters'),
+  name: Yup.string().required('Full Name is required'),
   email: Yup.string().required('Email is required').email('Email is invalid.'),
-  phoneNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
+  telephone: Yup.string()
+    .required('Telephone is required')
+    .matches(phoneRegExp, 'Phone number is not valid')
+    .min(10, 'Telephone minium 10 characters'),
+  address: Yup.string().required('Address is not valid')
 })
 function FormCreate(props) {
   const { title, onOpen, onClose, handleSubmitForm, value } = props
@@ -70,7 +74,7 @@ function FormCreate(props) {
   const handleClose = () => onClose()
 
   const onSubmit = data => {
-    dispatch(customerActions.registerAccount(data))
+    dispatch(customerActions.createCustomer(data))
   }
 
   return (

@@ -6,11 +6,20 @@ import HomeOutline from 'mdi-material-ui/HomeOutline'
 import FormatLetterCase from 'mdi-material-ui/FormatLetterCase'
 import AccountCogOutline from 'mdi-material-ui/AccountCogOutline'
 import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
-import Account from 'mdi-material-ui/Account'
-import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
-import { NotificationClearAll } from 'mdi-material-ui'
-import { FileDocument } from 'mdi-material-ui'
+
+import {
+  AccountGroupOutline,
+  FileDocument,
+  SwapHorizontal,
+  AccountBoxMultipleOutline,
+  ForumOutline,
+  FileDocumentMultipleOutline
+} from 'mdi-material-ui'
+import { flip } from '@popperjs/core'
+
+//  ** Components imports
+import ListDocument from 'src/views/admin/documents'
 
 
 const navigation = () => {
@@ -24,14 +33,41 @@ const navigation = () => {
     {
       title: 'Account Settings',
       icon: AccountCogOutline,
-      path: '/account-settings'
-
-      // isShowMenu: true
+      path: '/account-settings',
+      isShowMenu: true
     },
     {
       title: 'Customer',
       icon: AccountCogOutline,
       path: '/customer-dashboard',
+      isShowMenu: true
+    },
+    {
+      sectionTitle: 'Marketing Department',
+      isShowMenu: true
+    },
+    {
+      title: 'Forums',
+      icon: SwapHorizontal,
+      path: '/marketing-department/forums',
+      isShowMenu: true
+    },
+    {
+      title: 'Members',
+      icon: AccountBoxMultipleOutline,
+      path: '/marketing-department/members',
+      isShowMenu: true
+    },
+    {
+      title: 'Messages',
+      icon: ForumOutline,
+      path: '/marketing-department/messages',
+      isShowMenu: false
+    },
+    {
+      title: 'Documents',
+      icon: FileDocumentMultipleOutline,
+      path: '/marketing-department/documents',
       isShowMenu: true
     },
     {
@@ -51,6 +87,13 @@ const navigation = () => {
       isShowMenu: true
     },
 
+    // {
+    //   title: 'Custommer Detail',
+    //   icon: AccountCogOutline,
+    //   path: 'custommer-detail',
+    //   isShowMenu: false
+    // },
+
     // Document
     {
       sectionTitle: 'Documents',
@@ -61,6 +104,8 @@ const navigation = () => {
       icon: FileDocument,
       path: '/admin/list-documents',
       isShowMenu: true
+
+      // component: ListDocument
     },
 
     {

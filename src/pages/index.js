@@ -62,12 +62,6 @@ const Card = styled(MuiCard)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: '28rem' }
 }))
 
-const LinkStyled = styled('a')(({ theme }) => ({
-  fontSize: '0.875rem',
-  textDecoration: 'none',
-  color: theme.palette.primary.main
-}))
-
 const FormControlLabel = styled(MuiFormControlLabel)(({ theme }) => ({
   '& .MuiFormControlLabel-label': {
     fontSize: '0.875rem',
@@ -83,11 +77,6 @@ const LoginPage = () => {
 
   const handleShowSnackbar = (message, variant = 'success') => enqueueSnackbar(message, { variant })
 
-  // ** State
-  const [values, setValues] = useState({
-    password: '',
-    showPassword: false
-  })
   const [onOpen, setOnOpen] = useState(false)
   const [isShowPassword, setIsShowPassword] = useState(false)
 
@@ -130,29 +119,24 @@ const LoginPage = () => {
     }
   }, [isError])
 
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value })
+  // Xử lí khi nhấn phím enter
+  const handleKeyDown = event => {
+    if (event.key === 'Enter') {
+      // Đoạn mã xử lý khi nhấn phím Enter ở đây
+    }
   }
 
-  const handleClickShowPassword = () => {
-    // setValues({ ...values, showPassword: !values.showPassword })
-    setIsShowPassword(!isShowPassword)
-  }
+  // Xử lí khi người dùng click vào icon hide/show password
+  const handleClickShowPassword = () => setIsShowPassword(!isShowPassword)
 
-  const handleMouseDownPassword = event => {
-    event.preventDefault()
-  }
-
-  const handleForgotPassword = () => {
-    // router.push('/pages/forgot-password')
-    setOnOpen(true)
-  }
+  // Xử lí khi click vào quên mật khẩu
+  const handleForgotPassword = () => setOnOpen(true)
 
   return (
     <Box className='content-center'>
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
-          {/* <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <svg
               width={35}
               height={29}
@@ -224,7 +208,7 @@ const LoginPage = () => {
             >
               {themeConfig.templateName}
             </Typography>
-          </Box> */}
+          </Box>
           <Box sx={{ mb: 6 }}>
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
               Welcome to Company Active! 👋🏻
@@ -254,6 +238,7 @@ const LoginPage = () => {
                           fullWidth
                           variant='outlined'
                           style={{ marginBottom: 10 }}
+                          onKeyDown={handleKeyDown}
                           id='outlined-start-adornment'
                           InputProps={{
                             endAdornment: (
