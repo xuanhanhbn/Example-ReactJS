@@ -112,15 +112,12 @@ const UserDropdown = () => {
               <Typography sx={{ fontWeight: 600 }}>{dataUser?.fullName || ''}</Typography>
               <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
                 {/* {dataUser ? dataUser?.roles[0].toString() : ''} */}
-<<<<<<< HEAD
-=======
                 {/* {globalData && Object.keys(globalData) ? dataUser?.roles[0].toString() : ''} */}
->>>>>>> dev
                 {/* Admin */}
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
+              </Typography >
+            </Box >
+          </Box >
+        </Box >
         <Divider sx={{ mt: 0, mb: 1 }} />
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/account-settings')}>
           <Box sx={styles}>
@@ -164,7 +161,7 @@ const UserDropdown = () => {
           <LogoutVariant sx={{ marginRight: 2, fontSize: '1.375rem', color: 'text.secondary' }} />
           Logout
         </MenuItem>
-      </Menu>
+      </Menu >
     </Fragment >
   )
 }
