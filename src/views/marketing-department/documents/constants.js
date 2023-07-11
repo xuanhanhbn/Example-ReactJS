@@ -7,16 +7,16 @@ export const columns = [
 
     // isSort: true,
   },
-  { field: 'name', name: 'Name', minWidth: 170 },
-  { field: 'email', name: 'Email', minWidth: 100 },
+  { field: 'title', name: 'Title', minWidth: 170 },
+  { field: 'author', name: 'Author', minWidth: 100 },
   {
-    field: 'address',
-    name: 'Address',
+    field: 'created',
+    name: 'Created',
     minWidth: 170
   },
   {
-    field: 'telephone',
-    name: 'Phone',
+    field: 'lastEdited',
+    name: 'Last Edited',
     minWidth: 170
   },
   {

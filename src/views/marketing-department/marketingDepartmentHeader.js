@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
@@ -46,4 +46,4 @@ function MarketingDepartmentHeader() {
   )
 }
 
-export default MarketingDepartmentHeader
+export default memo(MarketingDepartmentHeader)

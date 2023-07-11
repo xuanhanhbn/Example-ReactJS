@@ -8,6 +8,8 @@ import { replyTopic } from './constants'
 import CardActions from '@mui/material/CardActions'
 import Button from '@mui/material/Button'
 import { Input } from 'antd'
+import { Breadcrumb } from 'antd'
+import { memo } from 'react'
 
 const { TextArea } = Input
 
@@ -21,6 +23,11 @@ const ImgStyled = styled('img')(({ theme }) => ({
 function ViewTopic() {
   return (
     <div>
+      <Breadcrumb style={{ marginBottom: 30 }}>
+        <Breadcrumb.Item>Marketing Department</Breadcrumb.Item>
+        <Breadcrumb.Item>Forums</Breadcrumb.Item>
+        <Breadcrumb.Item>View Topic</Breadcrumb.Item>
+      </Breadcrumb>
       <Card sx={{ borderRadius: 2 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(10, 10.25, 6)} !important` }}>
           <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
@@ -88,4 +95,4 @@ function ViewTopic() {
   )
 }
 
-export default ViewTopic
+export default memo(ViewTopic)

@@ -11,12 +11,49 @@ import TableHead from '@mui/material/TableHead'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
-import { CircleSmall, FileDocumentOutline } from 'mdi-material-ui'
+import { CircleSmall, Delete, EyeOutline, FileDocumentOutline } from 'mdi-material-ui'
+import { Breadcrumb } from 'antd'
+import { memo } from 'react'
+import TableCommon from 'src/components/TableCommon'
+import Link from 'next/link'
+import React, { useCallback } from 'react'
+import { columns } from './constants'
 
 function MarketingDocuments() {
+  // Xử lí render ra STT & actions
+  const parseData = useCallback((item, field, index) => {
+    if (field === 'index') {
+      return index + 1
+    }
+
+    if (field === 'actions') {
+      return (
+        <>
+          <Link
+            passHref
+            href={{
+              pathname: '/account-settings/',
+              query: { ...item, type: 'not' }
+            }}
+          >
+            <EyeOutline style={{ fontSize: 18, marginRight: 5 }} />
+          </Link>
+          {/* </Button> */}
+          <Delete style={{ fontSize: 18, color: 'red' }} color='red' />
+        </>
+      )
+    }
+
+    return item[field]
+  }, [])
+
   return (
     <div>
-      <MarketingDepartmentHeader />
+      <Breadcrumb style={{ marginBottom: 30 }}>
+        <Breadcrumb.Item>Marketing Department</Breadcrumb.Item>
+        <Breadcrumb.Item>Documents</Breadcrumb.Item>
+      </Breadcrumb>
+      {/* <MarketingDepartmentHeader /> */}
       <Card style={{ borderRadius: 10, marginTop: 30 }}>
         <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography variant='h6'>You are viewing all docs.</Typography>
@@ -28,55 +65,30 @@ function MarketingDocuments() {
             style={{
               minWidth: 150,
               minHeight: 40,
-              marginTop: 5,
-              borderRadius: 30
+              marginTop: 5
             }}
           >
             Create New Docs
           </Button>
         </CardContent>
       </Card>
-      <Card style={{ borderRadius: 10, marginTop: '20px' }}>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label='simple table'>
-            <TableHead>
-              <TableRow>
-                <TableCell>TITLE</TableCell>
-                <TableCell align='right'>AUTHOR</TableCell>
-                <TableCell align='right'> CREATED</TableCell>
-                <TableCell align='right'>LAST EDITED</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{
-                  '&:last-of-type td, &:last-of-type th': {
-                    border: 0
-                  }
-                }}
-              >
-                <TableCell component='th' scope='row' style={{ display: 'grid' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', color: 'black', fontSize: 14 }}>
-                    <FileDocumentOutline />
-                    ádsajhdbhjashbd
-                  </div>
-                  <div>...</div>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <p>Read</p>
-                    <CircleSmall />
-                    <p>Edit</p>
-                  </div>
-                </TableCell>
-                <TableCell align='right'>dsadas</TableCell>
-                <TableCell align='right'>sadsa</TableCell>
-                <TableCell align='right'>sadsad</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <Card className='mt-4'>
+        <TableCommon
+          data={[]}
+          parseFunction={parseData}
+          columns={columns}
+          isShowPaging
+          classNameTable='tblCampaignReport'
+
+          // onChangePage={page => onChangePage(page - 1)}
+          // totalCountData={(dataList && dataList.totalElements) || 0}
+          // defaultPage={dataRequest.page + 1}
+          // currentPage={dataRequest.page + 1}
+          // totalDisplay={dataRequest.size || 10}
+        />
       </Card>
     </div>
   )
 }
 
-export default MarketingDocuments
+export default memo(MarketingDocuments)

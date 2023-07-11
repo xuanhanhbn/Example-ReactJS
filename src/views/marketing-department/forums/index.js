@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
@@ -17,6 +17,12 @@ import Paper from '@mui/material/Paper'
 import { Input } from 'antd'
 import CardActions from '@mui/material/CardActions'
 import Link from 'next/link'
+import { Breadcrumb } from 'antd'
+import TableCommon from 'src/components/TableCommon'
+import { Delete } from 'mdi-material-ui'
+import EyeOutline from 'mdi-material-ui/EyeOutline'
+import { useCallback } from 'react'
+import { columns } from './constants'
 
 const { TextArea } = Input
 
@@ -28,67 +34,47 @@ const ImgStyled = styled('img')(({ theme }) => ({
 }))
 
 function MarketingForums() {
+  const parseData = useCallback((item, field, index) => {
+    if (field === 'index') {
+      return index + 1
+    }
+
+    if (field === 'actions') {
+      return (
+        <>
+          <Link
+            passHref
+            href={{
+              pathname: '/account-settings/',
+              query: { ...item, type: 'not' }
+            }}
+          >
+            <EyeOutline style={{ fontSize: 18, marginRight: 5 }} />
+          </Link>
+          {/* </Button> */}
+          <Delete style={{ fontSize: 18, color: 'red' }} color='red' />
+        </>
+      )
+    }
+
+    return item[field]
+  }, [])
+
   return (
     <div>
-      <MarketingDepartmentHeader />
-      <Card style={{ borderRadius: 10, marginTop: '20px' }}>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label='simple table'>
-            <TableHead>
-              <TableRow>
-                <TableCell>TOPIC</TableCell>
-                <TableCell align='right'>VOICES</TableCell>
-                <TableCell align='right'> POSTS</TableCell>
-                <TableCell align='right'>LAST POST</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {listTopic.map(topic => (
-                <TableRow
-                  key={topic.id}
-                  sx={{
-                    '&:last-of-type td, &:last-of-type th': {
-                      border: 0
-                    }
-                  }}
-                >
-                  <TableCell component='th' scope='row' style={{ display: 'grid' }}>
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        color: 'black',
-                        fontSize: 14,
-                        fontWeight: 600
-                      }}
-                    >
-                      <Link href={`/marketing-department/forums/topic`}>{topic.topicTitle}</Link>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <p>Started by: </p>
-                      <ImgStyled
-                        sx={{
-                          borderRadius: 50,
-                          width: 20,
-                          height: 20,
-                          marginLeft: 3,
-                          marginRight: 3
-                        }}
-                        src={topic.started.avatar}
-                        alt='Profile Pic'
-                      />
-
-                      <>{topic.started.name}</>
-                    </div>
-                  </TableCell>
-                  <TableCell align='right'>{topic.voices}</TableCell>
-                  <TableCell align='right'>{topic.post}</TableCell>
-                  <TableCell align='right'>{topic.lastPost}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <Breadcrumb style={{ marginBottom: 30 }}>
+        <Breadcrumb.Item>Marketing Department</Breadcrumb.Item>
+        <Breadcrumb.Item>Forums</Breadcrumb.Item>
+      </Breadcrumb>
+      {/* <MarketingDepartmentHeader /> */}
+      <Card className='mt-4'>
+        <TableCommon
+          data={[]}
+          parseFunction={parseData}
+          columns={columns}
+          isShowPaging
+          classNameTable='tblCampaignReport'
+        />
       </Card>
       <Card style={{ borderRadius: 10, marginTop: '20px' }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(10, 10.25, 6)} !important` }}>
@@ -99,14 +85,14 @@ function MarketingForums() {
           <Typography variant='h5' sx={{ marginBottom: 2, fontWeight: 600 }}>
             Topic Title
           </Typography>
-          <Input style={{ borderRadius: 30, marginTop: 10, padding: '10px 20px' }} />
-          <TextArea rows={6} style={{ marginTop: 30, borderRadius: 20 }} />
+          <Input style={{ borderRadius: 6, marginTop: 10, padding: '10px 20px' }} />
+          <TextArea rows={6} style={{ marginTop: 30, borderRadius: 6 }} />
 
           <CardActions>
-            <Button size='large' type='submit' sx={{ padding: '10px 20px', borderRadius: 30 }} variant='contained'>
+            <Button size='large' type='submit' sx={{ padding: '10px 20px' }} variant='contained'>
               Submit
             </Button>
-            <Button size='large' color='secondary' variant='outlined' sx={{ padding: '10px 20px', borderRadius: 30 }}>
+            <Button size='large' color='secondary' variant='outlined' sx={{ padding: '10px 20px' }}>
               Cancel
             </Button>
           </CardActions>
@@ -116,4 +102,4 @@ function MarketingForums() {
   )
 }
 
-export default MarketingForums
+export default memo(MarketingForums)
